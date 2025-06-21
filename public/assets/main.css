@@ -35,7 +35,7 @@ h2 {
     margin-bottom: 65px;
 }
 h3 {
-    font-size: 16px;
+    font-size: 30px;
 }
 
 /*-- Header --*/
@@ -70,6 +70,177 @@ header li {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/*-- Home --*/
+#home {
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 40px;
+}
+#home h2 {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 30px;
+    position: relative;
+    display: inline-block;
+}
+#home h2::after {
+    display: block;
+    width: 60%;
+    height: 3px;
+    background-color: white;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+#home-detail {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+#home-detail h3 {
+    font-size: 1.8rem;
+    color: #34495e;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+#home-detail p {
+    font-size: 1.1rem;
+    color: dimgray;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+/* -- Brand of List -- */
+#brands {
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 40px;
+}
+#brands h2 {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 30px;
+    position: relative;
+    display: inline-block;
+}
+#brands h2::after {
+    display: block;
+    width: 60%;
+    height: 3px;
+    background-color: white;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+.page-cover {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+.page-title {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.page-divider {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 30px 0;
+}
+.form-cover {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+.form-input-title {
+    font-weight: bold;
+    color: #34495e;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+.form-input-title small {
+    color: #e74c3c;
+    margin-left: 5px;
+}
+.input-general {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+.input-general:focus {
+    border-color: #3498db;
+    outline: none;
+}
+.input-message {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 100px;
+    transition: border-color 0.2s ease;
+}
+.input-message:focus {
+    border-color: #3498db;
+    outline: none;
+}
+.form-input-error {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    height: 1.2em;
+}
+.input-submit-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.3s ease;
+}
+.input-submit-button:hover {
+    background-color: #218838;
+}
+.error-message {
+    background-color: #fdd;
+    border: 1px solid #f00;
+    color: #a00;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: left;
+}
+.error-message ul {
+    list-style: disc;
+    margin-left: 20px;
+    padding: 0;
 }
 
 /*-- Footer --*/
