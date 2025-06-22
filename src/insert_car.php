@@ -4,7 +4,6 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    // POST以外からのアクセスは不正とみなし、リダイレクト
     header('Location: /');
     exit();
 }
@@ -12,21 +11,21 @@
 $errors = [];
 
 // Manufacture Name
-$make = '';
-if (isset($_POST['make'])) {
-    $make = mbTrim(str_replace("\r\n", "\n", $_POST['make']));
-    if (empty($make) || mb_strlen($make) > 100) {
+$manufactureName = '';
+if (isset($_POST['manufactureName'])) {
+    $manufactureName = mbTrim(str_replace("\r\n", "\n", $_POST['manufactureName']));
+    if (empty($manufactureName) || mb_strlen($manufactureName) > 100) {
         $errors[] = 'メーカー名は1～100文字で入力してください。';
     }
 } else {
     $errors[] = 'メーカー名が入力されていません。';
 }
 
-// model
-$model = '';
-if (isset($_POST['model'])) {
-    $model = mbTrim(str_replace("\r\n", "\n", $_POST['model']));
-    if (empty($model) || mb_strlen($model) > 100) {
+// Car Name
+$carName = '';
+if (isset($_POST['carName'])) {
+    $carName = mbTrim(str_replace("\r\n", "\n", $_POST['carName']));
+    if (empty($carName) || mb_strlen($carName) > 100) {
         $errors[] = '車種名は1～100文字で入力してください。';
     }
 } else {
@@ -47,12 +46,12 @@ if (isset($_POST['price'])) {
 
 
 // engine_type
-$engine_type = null;
-if (isset($_POST['engine_type']) && $_POST['engine_type'] !== '') {
-    $engine_type = mbTrim($_POST['engine_type']);
-    if (mb_strlen($engine_type) > 50) {
+$engineType = null;
+if (isset($_POST['engineType']) && $_POST['engineType'] !== '') {
+    $engineType = mbTrim($_POST['engineType']);
+    if (mb_strlen($engineType) > 50) {
         $errors[] = 'エンジンタイプは50文字以内で入力してください。';
-        $engine_type = null;
+        $engineType = null;
     }
 }
 
@@ -67,12 +66,12 @@ if (isset($_POST['displacement']) && $_POST['displacement'] !== '') {
 }
 
 // fuel_economy (燃費)
-$fuel_economy = null;
-if (isset($_POST['fuel_economy']) && $_POST['fuel_economy'] !== '') {
-    $fuel_economy = filter_var($_POST['fuel_economy'], FILTER_VALIDATE_FLOAT);
-    if ($fuel_economy === false || $fuel_economy <= 0 || $fuel_economy > 999.99) {
+$fuelEconomy = null;
+if (isset($_POST['fuelEconomy']) && $_POST['fuelEconomy'] !== '') {
+    $fuelEconomy = filter_var($_POST['fuelEconomy'], FILTER_VALIDATE_FLOAT);
+    if ($fuelEconomy === false || $fuelEconomy <= 0 || $fuelEconomy > 999.99) {
         $errors[] = '燃費は0より大きい数値で入力してください。';
-        $fuel_economy = null;
+        $fuelEconomy = null;
     }
 }
 
@@ -86,48 +85,41 @@ if (isset($_POST['description']) && $_POST['description'] !== '') {
     }
 }
 
-// image_path (画像パス)
-$image_path = 'images/default_car.jpg';
-
 if (empty($errors)) {
-    $query = 'INSERT INTO cars
-            (make, model, year, price, engine_type, displacement, fuel_economy, description, image_path) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    try {
+        $query = 'INSERT INTO cars
+                (manufactureName, carName, price, engineType, displacement, fuelEconomy, description)
+                VALUES (:manufactureName, :carName, :price, :engineType, :displacement, :fuelEconomy, :description)';
 
-    $stmt = $conn->prepare($query);
+        $stmt = $dbh->prepare($query);
 
-    $stmt->bind_param(
-        "ssidsddss",
-        $make,
-        $model,
-        $year,
-        $price,
-        $engine_type,
-        $displacement,
-        $fuel_economy,
-        $description,
-        $image_path
-    );
+        $stmt->bindValue(':manufactureName', $manufactureName, PDO::PARAM_STR);
+        $stmt->bindValue(':carName', $carName, PDO::PARAM_STR);
+        $stmt->bindValue(':price', $price, PDO::PARAM_STR);
+        $stmt->bindValue(':engineType', $engineType, PDO::PARAM_STR);
+        $stmt->bindValue(':displacement', $displacement, PDO::PARAM_STR);
+        $stmt->bindValue(':fuelEconomy', $fuelEconomy, PDO::PARAM_STR);
+        $stmt->bindValue(':description', $description, PDO::PARAM_STR);
 
-    if ($stmt->execute()) {
-        header('Location: brand_cars.php?brand=' . urlencode($make));
+        $stmt->execute();
+
+        $_SESSION['success_message'] = '車両情報が正常に登録されました。';
+        header('Location: /');
         exit();
-    } else {
-        $errors[] = 'データベースへの保存に失敗しました: ' . $stmt->error;
+
+    } catch (PDOException $e) {
+        error_log('データベース保存エラー: ' . $e->getMessage());
+        $errors[] = '車両情報の保存中にエラーが発生しました。時間をおいて再度お試しください。';
+
         $_SESSION['form_errors'] = $errors;
         $_SESSION['form_data'] = $_POST;
-        header('Location: add_car.php');
+        header('Location: /');
         exit();
     }
-    $stmt->close();
 } else {
-    session_start();
     $_SESSION['form_errors'] = $errors;
     $_SESSION['form_data'] = $_POST;
-    header('Location: add_car.php');
+    header('Location: /');
     exit();
 }
-
-$conn->close();
-
 ?>
