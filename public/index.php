@@ -24,6 +24,19 @@
         <link rel="stylesheet" href="./assets/main.css">
     </head>
     <body>
+        <?php
+            if (isset($_SESSION['success_message'])) {
+                echo '<p style="color: green;">' . htmlspecialchars($_SESSION['success_message']) . '</p>';
+                unset($_SESSION['success_message']);
+            }
+            if (isset($_SESSION['form_errors'])) {
+                foreach ($_SESSION['form_errors'] as $error) {
+                    echo '<p style="color: red;">' . htmlspecialchars($error) . '</p>';
+                }
+                unset($_SESSION['form_errors']);
+            }
+        ?>
+
         <!-- Header -->
         <header>
             <a href="index.php">car introduction</a>
@@ -62,7 +75,7 @@
             <div class="page-cover">
                 <p class="page-title">New Car Registration</p>
                 <hr class="pagedivider">
-                <form action="/" method="post">
+                <form action="index.php" method="post">
                         <div class="form-input-title">メーカー名 <small>(必須)</small></div>
                         <input
                             type="text"
@@ -120,12 +133,21 @@
                             class="input-general"
                         />
 
-                        <div class="form-input-error"></div>
-                            <div class="form-input-title">詳細説明</div>
-                            <textarea name="description" class="input-message"></textarea>
-                            <div class="form-input-error"></div>
-                            <input type="hidden" name="action_type" value="insert" />
-                            <button type="submit" class="input-submit-button">登録する</button>
+                        <div class="form-input-title">詳細説明</div>
+                        <textarea name="description" class="input-message"></textarea>
+                        <input type="hidden" name="action_type" value="insert" />
+
+                        <div class="form-input-title">公式ホームページリンク</div>
+                        <input
+                            type="url"
+                            name="hp"
+                            maxlength="255"
+                            value=""
+                            class="input-general"
+                            placeholder="https://example.com"
+                        />
+
+                        <button type="submit" class="input-submit-button">登録する</button>
                     </form>
                 </div>
             </div>
@@ -133,56 +155,38 @@
 
         <hr class="page-divider" />
 
-        <section id="brand-list-section" class="brand-list-section">
-            <h2>ブランドから探す</h2>
-            <div class="brand-grid">
-                <?php
-                $brands = [];
-                $sql_brands = "SELECT DISTINCT make FROM cars ORDER BY make ASC";
-                $result_brands = $conn->query($sql_brands);
-
-                if ($result_brands && $result_brands->num_rows > 0) {
-                    while($row = $result_brands->fetch_assoc()) {
-                        $brands[] = $row['make'];
+        <section id="car-info-list-section">
+            <?php
+                $sql = "SELECT * FROM cars ORDER BY id DESC";
+                $stmt = $dbh->query($sql);
+                $cars = [];
+                if ($stmt) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $cars[] = $row;
                     }
                 }
-                ?>
-                <?php if (!empty($brands)): ?>
-                    <?php foreach ($brands as $brand): ?>
-                        <a href="brand_cars.php?brand=<?php echo urlencode($brand); ?>" class="brand-item">
-                            <?php
-                            $logo_path = 'images/logo_' . strtolower(str_replace(' ', '_', $brand)) . '.png';
-                            $display_logo = file_exists(__DIR__ . '/public/' . $logo_path) ? htmlspecialchars($logo_path) : 'images/default_logo.png';
-                            ?>
-                            <img src="<?php echo $display_logo; ?>" alt="<?php echo htmlspecialchars($brand); ?> Logo">
-                            <h3><?php echo htmlspecialchars($brand); ?></h3>
-                        </a>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p>現在、登録されているブランドはありません。</p>
-                <?php endif; ?>
-            </div>
-        </section>
-
-        <hr class="page-divider" />
-
-        <section id="car-info-list-section">
+            ?>
             <div class="page-cover">
                 <p class="page-title">掲載自動車一覧</p>
                 <hr class="page-divider" />
                 <div class="car-info-grid"> <?php if (!empty($cars)): ?>
-                        <?php foreach ($cars as $car): ?>
-                            <h2><?php echo htmlspecialchars($car['make'] . ' ' . $car['model']); ?></h2>
-                            <div class="car-info-details">
-                                <h3><?php echo htmlspecialchars($car['make'] . ' ' . $car['model']); ?></h3>
-                                <p><strong>価格:</strong> <?php echo number_format($car['price'] ?? 0, 2); ?>万円</p>
-                                <p><strong>エンジン:</strong> <?php echo htmlspecialchars($car['engine_type'] ?? '不明'); ?></p>
-                                <p><strong>排気量:</strong> <?php echo htmlspecialchars($car['displacement'] ?? '不明'); ?>L</p>
-                                <p><strong>燃費:</strong> <?php echo htmlspecialchars($car['fuel_economy'] ?? '不明'); ?>km/L</p>
-                                <p><strong>説明:</strong> <?php echo htmlspecialchars($car['description'] ?? '詳細説明なし'); ?></p>
-                                <a href="car_detail.php?id=<?php echo htmlspecialchars($car['id']); ?>" class="btn-detail">詳細を見る</a>
-                            </div>
-                        <?php endforeach; ?>
+                    <?php foreach ($cars as $car): ?>
+                        <div class="car-info-details">
+                            <h3><?php echo htmlspecialchars($car['manufactureName'] . ' ' . $car['carName']); ?></h3>
+                            <p><strong>価格：</strong> <?php echo number_format($car['price'] ?? 0, 2); ?>万円</p>
+                            <p><strong>エンジン：</strong> <?php echo htmlspecialchars($car['engineType'] ?? '不明'); ?></p>
+                            <p><strong>排気量：</strong> <?php echo htmlspecialchars($car['displacement'] ?? '不明'); ?>L</p>
+                            <p><strong>燃費：</strong> <?php echo htmlspecialchars($car['fuelEconomy'] ?? '不明'); ?>km/L</p>
+                            <p><strong>説明：</strong> <?php echo htmlspecialchars($car['description'] ?? '詳細説明なし'); ?></p>
+                            <p><strong>HP：</strong>
+                                <?php if (!empty($car['hp'])): ?>
+                                    <a href="<?php echo htmlspecialchars($car['hp']); ?>" target="_blank" rel="noopener noreferrer">公式ホームページリンク</a>
+                                <?php else: ?>
+                                    なし
+                                <?php endif; ?>
+                            </p>
+                        </div>
+                    <?php endforeach; ?>
                     <?php else: ?>
                         <p class="no-cars-message">現在、掲載中の自動車はありません。</p>
                     <?php endif; ?>

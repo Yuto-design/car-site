@@ -205,18 +205,11 @@ header li {
     border-color: #3498db;
     outline: none;
 }
-.form-input-error {
-    color: #e74c3c;
-    font-size: 0.9rem;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    height: 1.2em;
-}
 .input-submit-button {
     display: block;
     width: 100%;
     padding: 15px;
-    background-color: #28a745;
+    background-color: dimgray;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -228,25 +221,52 @@ header li {
 .input-submit-button:hover {
     background-color: #218838;
 }
-.error-message {
-    background-color: #fdd;
-    border: 1px solid #f00;
-    color: #a00;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    text-align: left;
+.car-info-grid h2 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    color: dimgray;
 }
-.error-message ul {
-    list-style: disc;
-    margin-left: 20px;
-    padding: 0;
+.car-info-details {
+    background-color: #fff;
+    color: dimgray;
+    padding: 15px 20px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+}
+.car-info-details:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.car-info-details h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    color: dimgray;
+}
+.car-info-details p {
+    margin: 6px 0;
+    font-size: 1rem;
+    color: #555;
+}
+.car-info-details a {
+    margin: 6px 0;
+    font-size: 1rem;
+    color: #555;
+}
+.car-info-details strong {
+    color: #333;
+}
+.no-cars-message {
+    font-size: 1.1rem;
+    color: red;
+    text-align: center;
+    padding: 40px 0;
 }
 
 /*-- Footer --*/
 footer {
-    background-color: white;
-    color: dimgray;
+    background-color: #000;
+    color: #fff;
     font-size: 0.5rem;
     padding: 10px 20px;
     text-align: center;
