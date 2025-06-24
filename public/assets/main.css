@@ -65,7 +65,7 @@ header li {
     height: 550px;
     background-image: url(../img/car.jpg);
     background-size: cover;
-    color: yellow;
+    color: #ffff00;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -96,7 +96,7 @@ header li {
     border-radius: 2px;
 }
 #home-detail {
-    max-width: 800px;
+    max-width: 90%;
     margin: 0 auto;
     padding: 30px;
     background-color: white;
@@ -141,9 +141,9 @@ header li {
     border-radius: 2px;
 }
 .page-cover {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
+    max-width: 90%;
+    margin: 20px auto;
+    padding: 40px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
@@ -177,8 +177,28 @@ header li {
     color: #e74c3c;
     margin-left: 5px;
 }
+.size-input-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+}
+.input-size {
+    width: 100px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+.size-separator {
+    font-size: 1.2em;
+    color: dimgray;
+    padding: 0 5px;
+}
 .input-general {
-    width: calc(100% - 22px);
+    width: 80%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -191,7 +211,7 @@ header li {
     outline: none;
 }
 .input-message {
-    width: calc(100% - 22px);
+    width: 80%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -227,8 +247,9 @@ header li {
     color: dimgray;
 }
 .car-info-details {
-    background-color: #fff;
-    color: dimgray;
+    width: 50%;
+    background-color: gray;
+    color: #fff;
     padding: 15px 20px;
     border-radius: 6px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
@@ -238,23 +259,24 @@ header li {
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 .car-info-details h3 {
+    color: #ffd700;
     margin-top: 0;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     margin-bottom: 12px;
-    color: dimgray;
 }
 .car-info-details p {
     margin: 6px 0;
     font-size: 1rem;
-    color: #555;
 }
 .car-info-details a {
     margin: 6px 0;
     font-size: 1rem;
-    color: #555;
 }
 .car-info-details strong {
-    color: #333;
+    font-size: 1.2rem;
+}
+.car-info-details a:hover {
+    color: #ffff00;
 }
 .no-cars-message {
     font-size: 1.1rem;

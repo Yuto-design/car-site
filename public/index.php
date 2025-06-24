@@ -42,9 +42,9 @@
             <a href="index.php">car introduction</a>
             <nav>
                 <ul>
-                    <li>Home</li>
-                    <li>List of Brands</li>
-                    <li>Contact</li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#brands">List of Brands</a></li>
+                    <li><a href="">Contact</a></li>
                 </ul>
             </nav>
         </header>
@@ -73,10 +73,10 @@
         <section id="brands">
             <h2>List of Brands</h2>
             <div class="page-cover">
-                <p class="page-title">New Car Registration</p>
+                <p class="page-title">New Vehicles Registration</p>
                 <hr class="pagedivider">
                 <form action="index.php" method="post">
-                        <div class="form-input-title">メーカー名 <small>(必須)</small></div>
+                        <div class="form-input-title">Manufacture Name<small>(Required)</small></div>
                         <input
                             type="text"
                             name="manufactureName"
@@ -85,7 +85,7 @@
                             class="input-general"
                         />
 
-                        <div class="form-input-title">車種名 <small>(必須)</small></div>
+                        <div class="form-input-title">Model<small>(Required)</small></div>
                         <input
                             type="text"
                             name="carName"
@@ -94,7 +94,7 @@
                             class="input-general"
                         />
 
-                        <div class="form-input-title">価格 (万円) <small>(必須)</small></div>
+                        <div class="form-input-title">Price (YEN)<small>(Required)</small></div>
                         <input
                             type="number"
                             name="price"
@@ -104,7 +104,34 @@
                             class="input-general"
                         />
 
-                        <div class="form-input-title">エンジンタイプ</div>
+                        <div class="form-input-title">Size (Length×Width×Height) <small>(Required)</small></div>
+                        <div class="size-input-group">
+                            <input
+                                type="number"
+                                name="sizeLength"
+                                step="0.01"
+                                min="0"
+                                class="input-size"
+                            />
+                            <span class="size-separator">×</span>
+                            <input
+                                type="number"
+                                name="sizeWidth"
+                                step="0.01"
+                                min="0"
+                                class="input-size"
+                            />
+                            <span class="size-separator">×</span>
+                            <input
+                                type="number"
+                                name="sizeHeight"
+                                step="0.01"
+                                min="0"
+                                class="input-size"
+                            />
+                        </div>
+
+                        <div class="form-input-title">Engine Type</div>
                         <input
                             type="text"
                             name="engineType"
@@ -113,7 +140,7 @@
                             class="input-general"
                         />
 
-                        <div class="form-input-title">排気量 (L)</div>
+                        <div class="form-input-title">Displacement (L)</div>
                         <input
                             type="number"
                             name="displacement"
@@ -123,7 +150,7 @@
                             class="input-general"
                         />
 
-                        <div class="form-input-title">燃費 (km/L)</div>
+                        <div class="form-input-title">Fuel Economy (km/L)</div>
                         <input
                             type="number"
                             name="fuelEconomy"
@@ -133,11 +160,11 @@
                             class="input-general"
                         />
 
-                        <div class="form-input-title">詳細説明</div>
+                        <div class="form-input-title">Description</div>
                         <textarea name="description" class="input-message"></textarea>
                         <input type="hidden" name="action_type" value="insert" />
 
-                        <div class="form-input-title">公式ホームページリンク</div>
+                        <div class="form-input-title">Official HP Link</div>
                         <input
                             type="url"
                             name="hp"
@@ -167,20 +194,27 @@
                 }
             ?>
             <div class="page-cover">
-                <p class="page-title">掲載自動車一覧</p>
+                <p class="page-title">List of Featured Vehicles</p>
                 <hr class="page-divider" />
                 <div class="car-info-grid"> <?php if (!empty($cars)): ?>
                     <?php foreach ($cars as $car): ?>
                         <div class="car-info-details">
                             <h3><?php echo htmlspecialchars($car['manufactureName'] . ' ' . $car['carName']); ?></h3>
-                            <p><strong>価格：</strong> <?php echo number_format($car['price'] ?? 0, 2); ?>万円</p>
-                            <p><strong>エンジン：</strong> <?php echo htmlspecialchars($car['engineType'] ?? '不明'); ?></p>
-                            <p><strong>排気量：</strong> <?php echo htmlspecialchars($car['displacement'] ?? '不明'); ?>L</p>
-                            <p><strong>燃費：</strong> <?php echo htmlspecialchars($car['fuelEconomy'] ?? '不明'); ?>km/L</p>
-                            <p><strong>説明：</strong> <?php echo htmlspecialchars($car['description'] ?? '詳細説明なし'); ?></p>
-                            <p><strong>HP：</strong>
+                            <p><strong>Price：</strong> <?php echo number_format($car['price']); ?> YEN</p>
+                            <p><strong>Size (Length×Width×Height)：</strong>
+                                <?php
+                                    echo number_format($car['sizeLength']) . '×' .
+                                        number_format($car['sizeWidth']) . '×' .
+                                        number_format($car['sizeHeight']);
+                                ?>
+                            </p>
+                            <p><strong>Enginee Type：</strong> <?php echo htmlspecialchars($car['engineType'] ?? 'Not Clear'); ?></p>
+                            <p><strong>displacement：</strong> <?php echo htmlspecialchars($car['displacement'] ?? 'Not Clear'); ?>L</p>
+                            <p><strong>Fuel Economy：</strong> <?php echo htmlspecialchars($car['fuelEconomy'] ?? 'Not Clear'); ?>km/L</p>
+                            <p><strong>Description：</strong><br> <?php echo htmlspecialchars($car['description'] ?? 'None'); ?></p>
+                            <p><strong>Official HP：</strong>
                                 <?php if (!empty($car['hp'])): ?>
-                                    <a href="<?php echo htmlspecialchars($car['hp']); ?>" target="_blank" rel="noopener noreferrer">公式ホームページリンク</a>
+                                    <a href="<?php echo htmlspecialchars($car['hp']); ?>" target="_blank" rel="noopener noreferrer">HP Link</a>
                                 <?php else: ?>
                                     なし
                                 <?php endif; ?>

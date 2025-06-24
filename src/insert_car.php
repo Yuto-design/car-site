@@ -23,7 +23,7 @@
         $errors[] = 'メーカー名が入力されていません。';
     }
 
-    // Car Name
+    // Model
     $carName = '';
     if (isset($_POST['carName'])) {
         $carName = mbTrim(str_replace("\r\n", "\n", $_POST['carName']));
@@ -46,6 +46,41 @@
         $errors[] = '価格が入力されていません。';
     }
 
+    // Size Length
+    $sizeLength = null;
+    if (isset($_POST['sizeLength'])) {
+        $sizeLength = filter_var($_POST['sizeLength'], FILTER_VALIDATE_FLOAT);
+        if ($sizeLength === false || $sizeLength <= 0 || $sizeLength > 99999999.99) {
+            $errors[] = '全長は0より大きい数値で入力してください。';
+            $sizeLength = null;
+        }
+    } else {
+        $errors[] = '全長が入力されていません。';
+    }
+
+    // Size Width
+    $sizeWidth = null;
+    if (isset($_POST['sizeWidth'])) {
+        $sizeWidth = filter_var($_POST['sizeWidth'], FILTER_VALIDATE_FLOAT);
+        if ($sizeWidth === false || $sizeWidth <= 0 || $sizeWidth > 99999999.99) {
+            $errors[] = '全幅は0より大きい数値で入力してください。';
+            $sizeWidth = null;
+        }
+    } else {
+        $errors[] = '全幅が入力されていません。';
+    }
+
+    // Size Height
+    $sizeHeight = null;
+    if (isset($_POST['sizeHeight'])) {
+        $sizeHeight = filter_var($_POST['sizeHeight'], FILTER_VALIDATE_FLOAT);
+        if ($sizeHeight === false || $sizeHeight <= 0 || $sizeHeight > 99999999.99) {
+            $errors[] = '全高は0より大きい数値で入力してください。';
+            $sizeHeight = null;
+        }
+    } else {
+        $errors[] = '全高が入力されていません。';
+    }
 
     // engine_type
     $engineType = null;
@@ -100,14 +135,17 @@
     if (empty($errors)) {
         try {
             $query = 'INSERT INTO cars
-                    (manufactureName, carName, price, engineType, displacement, fuelEconomy, description, hp)
-                    VALUES (:manufactureName, :carName, :price, :engineType, :displacement, :fuelEconomy, :description, :hp)';
+                    (manufactureName, carName, price, sizeLength, sizeWidth, sizeHeight, engineType, displacement, fuelEconomy, description, hp)
+                    VALUES (:manufactureName, :carName, :price, :size, :engineType, :displacement, :fuelEconomy, :description, :hp)';
 
             $stmt = $dbh->prepare($query);
 
             $stmt->bindValue(':manufactureName', $manufactureName, PDO::PARAM_STR);
             $stmt->bindValue(':carName', $carName, PDO::PARAM_STR);
             $stmt->bindValue(':price', $price, PDO::PARAM_STR);
+            $stmt->bindValue(':sizeLength', $sizeLength, PDO::PARAM_STR);
+            $stmt->bindValue(':sizeWidth', $sizeWidth, PDO::PARAM_STR);
+            $stmt->bindValue(':sizeHeight', $sizeHeight, PDO::PARAM_STR);
             $stmt->bindValue(':engineType', $engineType, PDO::PARAM_STR);
             $stmt->bindValue(':displacement', $displacement, PDO::PARAM_STR);
             $stmt->bindValue(':fuelEconomy', $fuelEconomy, PDO::PARAM_STR);
