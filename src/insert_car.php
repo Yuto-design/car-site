@@ -136,7 +136,7 @@
         try {
             $query = 'INSERT INTO cars
                     (manufactureName, carName, price, sizeLength, sizeWidth, sizeHeight, engineType, displacement, fuelEconomy, description, hp)
-                    VALUES (:manufactureName, :carName, :price, :size, :engineType, :displacement, :fuelEconomy, :description, :hp)';
+                    VALUES (:manufactureName, :carName, :price, :sizeLength, :sizeWidth, :sizeHeight, :engineType, :displacement, :fuelEconomy, :description, :hp)';
 
             $stmt = $dbh->prepare($query);
 
