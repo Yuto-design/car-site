@@ -75,7 +75,7 @@
             <h2>List of Brands</h2>
             <div class="page-cover">
                 <p class="page-title">New Vehicles Registration</p>
-                <hr class="pagedivider">
+                <hr class="page-divider">
                 <form action="index.php" method="post">
                         <div class="form-input-title">Manufacture Name<small>(Required)</small></div>
                         <input
@@ -182,50 +182,99 @@
         </section>
 
         <section id="car-info-list-section">
-            <?php
-                $sql = "SELECT * FROM cars ORDER BY id DESC";
-                $stmt = $dbh->query($sql);
-                $cars = [];
-                if ($stmt) {
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        $cars[] = $row;
-                    }
-                }
-            ?>
             <div class="page-cover">
-                <h2 class="page-title">List of Featured Vehicles</h2>
+                <button class="filter-toggle-btn" id="toggleFilterBtn">≡</button>
+
+                <form method="GET" class="filter-form" id="filterForm">
+                    <p><strong>メーカーを選択：</strong></p>
+                    <?php
+                        $selectedManufacturers = $_GET['manufacturer'] ?? [];
+                        if (!is_array($selectedManufacturers)) {
+                            $selectedManufacturers = [$selectedManufacturers];
+                        }
+
+                        $stmtMakers = $dbh->query("SELECT DISTINCT manufactureName FROM cars ORDER BY manufactureName");
+                        while ($row = $stmtMakers->fetch(PDO::FETCH_ASSOC)) {
+                            $name = htmlspecialchars($row['manufactureName']);
+                            $checked = in_array($row['manufactureName'], $selectedManufacturers) ? 'checked' : '';
+                            echo "<label><input type='checkbox' name='manufacturer[]' value='$name' $checked> $name</label><br>";
+                        }
+                    ?>
+                    <button type="submit">検索</button>
+                </form>
+
+                <?php
+                    $selectedManufacturers = $_GET['manufacturer'] ?? [];
+
+                    if (!is_array($selectedManufacturers)) {
+                        $selectedManufacturers = [$selectedManufacturers];
+                    }
+
+                    if (!empty($selectedManufacturers)) {
+                        $placeholders = implode(',', array_fill(0, count($selectedManufacturers), '?'));
+                        $sql = "SELECT * FROM cars WHERE manufactureName IN ($placeholders) ORDER BY id DESC";
+                        $stmt = $dbh->prepare($sql);
+                        $stmt->execute($selectedManufacturers);
+                    } else {
+                        $sql = "SELECT * FROM cars ORDER BY id DESC";
+                        $stmt = $dbh->prepare($sql);
+                        $stmt->execute();
+                    }
+
+                    $cars = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                ?>
+
+                <h2 class="page-title">
+                    <?php
+                        if (!empty($selectedManufacturers)) {
+                            echo implode(' / ', array_map('htmlspecialchars', $selectedManufacturers)) . " Car List";
+                        } else {
+                            echo "List of Featured Vehicles";
+                        }
+                    ?>
+                </h2>
+
                 <hr class="page-divider" />
-                <div class="car-info-grid"> <?php if (!empty($cars)): ?>
-                    <?php foreach ($cars as $car): ?>
-                        <div class="car-info-details">
-                            <h3><?php echo htmlspecialchars($car['manufactureName'] . ' ' . $car['carName']); ?></h3>
-                            <p><strong>Price：</strong> <?php echo number_format($car['price']); ?> YEN</p>
-                            <p><strong>Size (Length×Width×Height)：</strong>
-                                <?php
-                                    echo number_format($car['sizeLength']) . '×' .
-                                        number_format($car['sizeWidth']) . '×' .
-                                        number_format($car['sizeHeight']);
-                                ?>
-                            </p>
-                            <p><strong>Engine Type：</strong> <?php echo htmlspecialchars($car['engineType'] ?? 'Not Clear'); ?></p>
-                            <p><strong>displacement：</strong> <?php echo htmlspecialchars($car['displacement'] ?? 'Not Clear'); ?>L</p>
-                            <p><strong>Fuel Economy：</strong> <?php echo htmlspecialchars($car['fuelEconomy'] ?? 'Not Clear'); ?>km/L</p>
-                            <p><strong>Description：</strong><br> <?php echo htmlspecialchars($car['description'] ?? 'None'); ?></p>
-                            <p><strong>Official HP：</strong>
-                                <?php if (!empty($car['hp'])): ?>
-                                    <a href="<?php echo htmlspecialchars($car['hp']); ?>" target="_blank" rel="noopener noreferrer">HP Link</a>
-                                <?php else: ?>
-                                    なし
-                                <?php endif; ?>
-                            </p>
-                        </div>
-                    <?php endforeach; ?>
+
+                <div class="car-info-grid">
+                    <?php if (!empty($cars)): ?>
+                        <?php foreach ($cars as $car): ?>
+                            <div class="car-info-details">
+                                <h3><?php echo htmlspecialchars($car['manufactureName'] . ' ' . $car['carName']); ?></h3>
+                                <p><strong>Price：</strong> <?php echo number_format($car['price']); ?> YEN</p>
+                                <p><strong>Size (L×W×H)：</strong>
+                                    <?php
+                                        echo number_format($car['sizeLength']) . '×' .
+                                            number_format($car['sizeWidth']) . '×' .
+                                            number_format($car['sizeHeight']);
+                                    ?>
+                                </p>
+                                <p><strong>Engine Type：</strong> <?php echo htmlspecialchars($car['engineType'] ?? 'Not Clear'); ?></p>
+                                <p><strong>Displacement：</strong> <?php echo htmlspecialchars($car['displacement'] ?? 'Not Clear'); ?>L</p>
+                                <p><strong>Fuel Economy：</strong> <?php echo htmlspecialchars($car['fuelEconomy'] ?? 'Not Clear'); ?>km/L</p>
+                                <p><strong>Description：</strong><br> <?php echo nl2br(htmlspecialchars($car['description'] ?? 'None')); ?></p>
+                                <p><strong>Official HP：</strong>
+                                    <?php if (!empty($car['hp'])): ?>
+                                        <a href="<?php echo htmlspecialchars($car['hp']); ?>" target="_blank" rel="noopener noreferrer">HP Link</a>
+                                    <?php else: ?>
+                                        なし
+                                    <?php endif; ?>
+                                </p>
+                            </div>
+                        <?php endforeach; ?>
                     <?php else: ?>
                         <p class="no-cars-message">現在、掲載中の自動車はありません。</p>
                     <?php endif; ?>
                 </div>
             </div>
         </section>
+
+        <script>
+            document.getElementById('toggleFilterBtn').addEventListener('click', function () {
+                const form = document.getElementById('filterForm');
+                form.style.display = (form.style.display === 'block') ? 'none' : 'block';
+            });
+        </script>
 
         <!-- Contact -->
         <section id="contact">
