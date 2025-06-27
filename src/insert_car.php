@@ -113,8 +113,8 @@
     if (isset($_POST['displacement']) && $_POST['displacement'] !== '') {
         if (is_numeric($_POST['displacement'])) {
             $displacement = (float)$_POST['displacement'];
-            if ($displacement <= 0 || $displacement > 999.99) {
-                $errors[] = '排気量は0より大きく、999.99以下の数値で入力してください。';
+            if ($displacement <= 0 || $displacement > 9999.99) {
+                $errors[] = '排気量は0より大きく、9999.99以下の数値で入力してください。';
                 $displacement = null;
             }
         } else {
@@ -157,11 +157,29 @@
         }
     }
 
+    // Car Image
+    $carImage = null;
+    if (isset($_FILES['carImage']) && $_FILES['carImage']['error'] === UPLOAD_ERR_OK) {
+        $upload_dir = __DIR__ . '/../public/uploads/';
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0755, true);
+        }
+
+        $file_tmp = $_FILES['carImage']['tmp_name'];
+        $file_name = uniqid('car_', true) . '.' . pathinfo($_FILES['carImage']['name'], PATHINFO_EXTENSION);
+        $target_path = $upload_dir . $file_name;
+
+        if (move_uploaded_file($file_tmp, $target_path)) {
+            $carImage = 'uploads/' . $file_name;
+        }
+    }
+
+
     if (empty($errors)) {
         try {
             $query = 'INSERT INTO cars
-                        (manufactureName, carName, price, sizeLength, sizeWidth, sizeHeight, engineType, displacement, fuelEconomy, hp, description)
-                        VALUES (:manufactureName, :carName, :price, :sizeLength, :sizeWidth, :sizeHeight, :engineType, :displacement, :fuelEconomy, :hp, :description)';
+                        (manufactureName, carName, price, sizeLength, sizeWidth, sizeHeight, engineType, displacement, fuelEconomy, hp, description, carImage)
+                        VALUES (:manufactureName, :carName, :price, :sizeLength, :sizeWidth, :sizeHeight, :engineType, :displacement, :fuelEconomy, :hp, :description, :carImage)';
 
             $stmt = $dbh->prepare($query);
 
@@ -176,6 +194,7 @@
             $stmt->bindValue(':fuelEconomy', $fuelEconomy, PDO::PARAM_STR);
             $stmt->bindValue(':description', $description, PDO::PARAM_STR);
             $stmt->bindValue(':hp', $hp, PDO::PARAM_STR);
+            $stmt->bindValue(':carImage', $carImage, PDO::PARAM_STR);
 
             $stmt->execute();
 
@@ -198,3 +217,4 @@
         header('Location: /');
         exit();
     }
+?>

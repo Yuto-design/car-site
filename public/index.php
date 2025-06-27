@@ -76,8 +76,8 @@
             <div class="page-cover">
                 <p class="page-title">New Vehicles Registration</p>
                 <hr class="page-divider">
-                <form action="index.php" method="post">
-                        <div class="form-input-title">Manufacture Name<small>(Required)</small></div>
+                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
+                    <div class="form-input-title">Manufacture Name<small>(Required)</small></div>
                         <input
                             type="text"
                             name="manufactureName"
@@ -175,9 +175,17 @@
                             placeholder="https://example.com"
                         />
 
+                        <div class="form-input-title">Car Image</div>
+                            <input
+                                type="file"
+                                name="carImage"
+                                accept="image/*"
+                                class="input-general"
+                        />
+
                         <button type="submit" class="input-submit-button">登録する</button>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </section>
 
@@ -186,22 +194,23 @@
                 <button class="filter-toggle-btn" id="toggleFilterBtn">≡</button>
 
                 <form method="GET" class="filter-form" id="filterForm">
-                        <p><strong>メーカーを選択：</strong></p>
-                        <div class="filter-form-check">
-                            <?php
-                                $selectedManufacturers = $_GET['manufacturer'] ?? [];
-                                if (!is_array($selectedManufacturers)) {
-                                    $selectedManufacturers = [$selectedManufacturers];
-                                }
+                    <p><strong>メーカーを選択：</strong></p>
+                    <div class="filter-form-check">
+                        <?php
+                            $selectedManufacturers = $_GET['manufacturer'] ?? [];
+                            if (!is_array($selectedManufacturers)) {
+                                $selectedManufacturers = [$selectedManufacturers];
+                            }
 
-                                $stmtMakers = $dbh->query("SELECT DISTINCT manufactureName FROM cars ORDER BY manufactureName");
-                                while ($row = $stmtMakers->fetch(PDO::FETCH_ASSOC)) {
-                                    $name = htmlspecialchars($row['manufactureName']);
-                                    $checked = in_array($row['manufactureName'], $selectedManufacturers) ? 'checked' : '';
-                                    echo "<label><input type='checkbox' name='manufacturer[]' value='$name' $checked> $name</label>";
-                                }
-                            ?>
-                        </div>
+                            $stmtMakers = $dbh->query("SELECT DISTINCT manufactureName FROM cars ORDER BY manufactureName");
+                            while ($row = $stmtMakers->fetch(PDO::FETCH_ASSOC)) {
+                                $name = htmlspecialchars($row['manufactureName']);
+                                $checked = in_array($row['manufactureName'], $selectedManufacturers) ? 'checked' : '';
+                                echo "<label><input type='checkbox' name='manufacturer[]' value='$name' $checked> $name</label>";
+                            }
+                        ?>
+                    </div>
+                    <hr class="page-divider" />
                     <button type="submit">検索</button>
                 </form>
 
@@ -241,7 +250,7 @@
                 <div class="car-info-grid">
                     <?php if (!empty($cars)): ?>
                         <?php foreach ($cars as $car): ?>
-                            <div class="car-info-details">
+                            <div class="car-info-details" style="background-image: url('<?php echo htmlspecialchars($car['carImage']); ?>');">
                                 <h3 class="card-maintitle"><?php echo htmlspecialchars($car['manufactureName'] . ' ' . $car['carName']); ?></h3>
                                 <div class="car-details">
                                     <p><strong>Price：</strong> <?php echo number_format($car['price']); ?> YEN</p>

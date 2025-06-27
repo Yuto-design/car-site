@@ -156,7 +156,7 @@ header li {
 }
 .page-divider {
     border: none;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #000;
     margin: 10px 0;
 }
 .form-cover {
@@ -204,6 +204,11 @@ header li {
     font-size: 1rem;
     box-sizing: border-box;
     transition: border-color 0.2s ease;
+}
+.input-general[type="file"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
 }
 .input-general:focus {
     border-color: #3498db;
@@ -273,6 +278,9 @@ header li {
     display: none;
     z-index: 200;
 }
+.filter-form p {
+    margin-left: 10px;
+}
 .filter-form-check {
     margin: 10px;
     display: grid;
@@ -291,12 +299,12 @@ header li {
     flex-wrap: wrap;
     gap: 1.5rem;
     padding: 1rem;
-    height: 800px;
 }
 .car-info-details {
     background-color: dimgray;
     color: #fff;
     width: 30%;
+    height: 400px;
     padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
@@ -306,6 +314,9 @@ header li {
     transition: transform 0.2s ease-in-out;
     flex: 0 0 calc(50% - 0.75rem);
     box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }
 .car-info-details:hover {
     transform: scale(1.03);
