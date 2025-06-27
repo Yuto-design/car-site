@@ -141,7 +141,7 @@
                             class="input-general"
                         />
 
-                        <div class="form-input-title">Displacement（排気量）【L】)</div>
+                        <div class="form-input-title">Displacement（排気量）【cc】)</div>
                         <input
                             type="number"
                             name="displacement"
@@ -240,26 +240,28 @@
                     <?php if (!empty($cars)): ?>
                         <?php foreach ($cars as $car): ?>
                             <div class="car-info-details">
-                                <h3><?php echo htmlspecialchars($car['manufactureName'] . ' ' . $car['carName']); ?></h3>
-                                <p><strong>Price：</strong> <?php echo number_format($car['price']); ?> YEN</p>
-                                <p><strong>Size (L×W×H)：</strong>
-                                    <?php
-                                        echo number_format($car['sizeLength']) . '×' .
+                                <h3 class="card-maintitle"><?php echo htmlspecialchars($car['manufactureName'] . ' ' . $car['carName']); ?></h3>
+                                <div class="car-details">
+                                    <p><strong>Price：</strong> <?php echo number_format($car['price']); ?> YEN</p>
+                                    <p><strong>Size (L×W×H)：</strong>
+                                        <?php
+                                            echo number_format($car['sizeLength']) . '×' .
                                             number_format($car['sizeWidth']) . '×' .
                                             number_format($car['sizeHeight']);
-                                    ?>
-                                </p>
-                                <p><strong>Engine Type：</strong> <?php echo htmlspecialchars($car['engineType'] ?? 'Not Clear'); ?></p>
-                                <p><strong>Displacement：</strong> <?php echo htmlspecialchars($car['displacement'] ?? 'Not Clear'); ?>L</p>
-                                <p><strong>Fuel Economy：</strong> <?php echo htmlspecialchars($car['fuelEconomy'] ?? 'Not Clear'); ?>km/L</p>
-                                <p><strong>Description：</strong><br> <?php echo nl2br(htmlspecialchars($car['description'] ?? 'None')); ?></p>
-                                <p><strong>Official HP：</strong>
-                                    <?php if (!empty($car['hp'])): ?>
-                                        <a href="<?php echo htmlspecialchars($car['hp']); ?>" target="_blank" rel="noopener noreferrer">HP Link</a>
-                                    <?php else: ?>
-                                        なし
-                                    <?php endif; ?>
-                                </p>
+                                        ?>
+                                    </p>
+                                    <p><strong>Engine Type：</strong> <?php echo htmlspecialchars($car['engineType'] ?? 'Not Clear'); ?></p>
+                                    <p><strong>Displacement：</strong> <?php echo htmlspecialchars($car['displacement'] ?? 'Not Clear'); ?> cc</p>
+                                    <p><strong>Fuel Economy：</strong> <?php echo htmlspecialchars($car['fuelEconomy'] ?? 'Not Clear'); ?> km/L</p>
+                                    <p><strong>Description：</strong><br> <?php echo nl2br(htmlspecialchars($car['description'] ?? 'None')); ?></p>
+                                    <p><strong>Official HP：</strong>
+                                        <?php if (!empty($car['hp'])): ?>
+                                            <a href="<?php echo htmlspecialchars($car['hp']); ?>" target="_blank" rel="noopener noreferrer">HP Link</a>
+                                        <?php else: ?>
+                                            なし
+                                        <?php endif; ?>
+                                    </p>
+                                </div>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>

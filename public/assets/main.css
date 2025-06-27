@@ -276,9 +276,10 @@ header li {
 }
 .car-info-grid {
     display: flex;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    flex-wrap: wrap;
     gap: 1.5rem;
     padding: 1rem;
+    height: 800px;
 }
 .car-info-details {
     background-color: dimgray;
@@ -288,23 +289,47 @@ header li {
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     position: relative;
+    overflow: hidden;
     padding: 15px;
     transition: transform 0.2s ease-in-out;
+    flex: 0 0 calc(50% - 0.75rem);
+    box-sizing: border-box;
 }
 .car-info-details:hover {
     transform: scale(1.03);
     box-shadow: 0 8px 16px rgba(246, 250, 2, 0.25);
 }
-.car-info-details .description {
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: opacity 0.4s ease, max-height 0.4s ease;
-    margin-top: 10px;
+.card-maintitle {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    padding: 0 1rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #f1c40f;
+    transform: translateY(0);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.car-info-details:hover .description {
+.car-info-details:hover .card-maintitle {
+    transform: translateY(-300px);
+}
+.car-details {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateY(100%);
+    opacity: 0;
+    background-color: #9191918c;
+    padding: 1rem;
+    font-size: 0.95rem;
+    color: #fff;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.car-info-details:hover .car-details {
+    transform: translateY(0);
     opacity: 1;
-    max-height: 300px;
 }
 .car-info-details h3 {
     font-size: 1.4rem;
