@@ -186,20 +186,22 @@
                 <button class="filter-toggle-btn" id="toggleFilterBtn">≡</button>
 
                 <form method="GET" class="filter-form" id="filterForm">
-                    <p><strong>メーカーを選択：</strong></p>
-                    <?php
-                        $selectedManufacturers = $_GET['manufacturer'] ?? [];
-                        if (!is_array($selectedManufacturers)) {
-                            $selectedManufacturers = [$selectedManufacturers];
-                        }
+                        <p><strong>メーカーを選択：</strong></p>
+                        <div class="filter-form-check">
+                            <?php
+                                $selectedManufacturers = $_GET['manufacturer'] ?? [];
+                                if (!is_array($selectedManufacturers)) {
+                                    $selectedManufacturers = [$selectedManufacturers];
+                                }
 
-                        $stmtMakers = $dbh->query("SELECT DISTINCT manufactureName FROM cars ORDER BY manufactureName");
-                        while ($row = $stmtMakers->fetch(PDO::FETCH_ASSOC)) {
-                            $name = htmlspecialchars($row['manufactureName']);
-                            $checked = in_array($row['manufactureName'], $selectedManufacturers) ? 'checked' : '';
-                            echo "<label><input type='checkbox' name='manufacturer[]' value='$name' $checked> $name</label><br>";
-                        }
-                    ?>
+                                $stmtMakers = $dbh->query("SELECT DISTINCT manufactureName FROM cars ORDER BY manufactureName");
+                                while ($row = $stmtMakers->fetch(PDO::FETCH_ASSOC)) {
+                                    $name = htmlspecialchars($row['manufactureName']);
+                                    $checked = in_array($row['manufactureName'], $selectedManufacturers) ? 'checked' : '';
+                                    echo "<label><input type='checkbox' name='manufacturer[]' value='$name' $checked> $name</label>";
+                                }
+                            ?>
+                        </div>
                     <button type="submit">検索</button>
                 </form>
 

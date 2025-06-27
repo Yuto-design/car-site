@@ -264,15 +264,27 @@ header li {
     position: absolute;
     top: 120px;
     right: 100px;
+    width: 25%;
     color: #000;
     background-color: #f4f4f4;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     font-size: 1.0rem;
     display: none;
+    z-index: 200;
+}
+.filter-form-check {
+    margin: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    align-items: start;
 }
 .filter-form button {
-    margin-top: 10px;
+    display: block;
+    margin: 10px auto;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 .car-info-grid {
     display: flex;

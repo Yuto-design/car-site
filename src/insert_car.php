@@ -36,11 +36,15 @@
 
     // price
     $price = null;
-    if (isset($_POST['price'])) {
-        $price = filter_var($_POST['price'], FILTER_VALIDATE_FLOAT);
-        if ($price === false || $price <= 0 || $price > 99999999.99) {
-            $errors[] = '価格は0より大きい数値で入力してください。';
-            $price = null;
+    if (isset($_POST['price']) && $_POST['price'] !== '') {
+        if (is_numeric($_POST['price'])) {
+            $price = (float)$_POST['price'];
+            if ($price <= 0 || $price > 99999999.99) {
+                $errors[] = '価格は0より大きく、99999999.99以下の数値で入力してください。';
+                $price = null;
+            }
+        } else {
+            $errors[] = '価格は有効な数値で入力してください。';
         }
     } else {
         $errors[] = '価格が入力されていません。';
@@ -48,11 +52,15 @@
 
     // Size Length
     $sizeLength = null;
-    if (isset($_POST['sizeLength'])) {
-        $sizeLength = filter_var($_POST['sizeLength'], FILTER_VALIDATE_FLOAT);
-        if ($sizeLength === false || $sizeLength <= 0 || $sizeLength > 99999999.99) {
-            $errors[] = '全長は0より大きい数値で入力してください。';
-            $sizeLength = null;
+    if (isset($_POST['sizeLength']) && $_POST['sizeLength'] !== '') {
+        if (is_numeric($_POST['sizeLength'])) {
+            $sizeLength = (float)$_POST['sizeLength'];
+            if ($sizeLength <= 0 || $sizeLength > 99999999.99) {
+                $errors[] = '全長は0より大きく、99999999.99以下の数値で入力してください。';
+                $sizeLength = null;
+            }
+        } else {
+            $errors[] = '全長は有効な数値で入力してください。';
         }
     } else {
         $errors[] = '全長が入力されていません。';
@@ -60,11 +68,15 @@
 
     // Size Width
     $sizeWidth = null;
-    if (isset($_POST['sizeWidth'])) {
-        $sizeWidth = filter_var($_POST['sizeWidth'], FILTER_VALIDATE_FLOAT);
-        if ($sizeWidth === false || $sizeWidth <= 0 || $sizeWidth > 99999999.99) {
-            $errors[] = '全幅は0より大きい数値で入力してください。';
-            $sizeWidth = null;
+    if (isset($_POST['sizeWidth']) && $_POST['sizeWidth'] !== '') {
+        if (is_numeric($_POST['sizeWidth'])) {
+            $sizeWidth = (float)$_POST['sizeWidth'];
+            if ($sizeWidth <= 0 || $sizeWidth > 99999999.99) {
+                $errors[] = '全幅は0より大きく、99999999.99以下の数値で入力してください。';
+                $sizeWidth = null;
+            }
+        } else {
+            $errors[] = '全幅は有効な数値で入力してください。';
         }
     } else {
         $errors[] = '全幅が入力されていません。';
@@ -72,11 +84,15 @@
 
     // Size Height
     $sizeHeight = null;
-    if (isset($_POST['sizeHeight'])) {
-        $sizeHeight = filter_var($_POST['sizeHeight'], FILTER_VALIDATE_FLOAT);
-        if ($sizeHeight === false || $sizeHeight <= 0 || $sizeHeight > 99999999.99) {
-            $errors[] = '全高は0より大きい数値で入力してください。';
-            $sizeHeight = null;
+    if (isset($_POST['sizeHeight']) && $_POST['sizeHeight'] !== '') {
+        if (is_numeric($_POST['sizeHeight'])) {
+            $sizeHeight = (float)$_POST['sizeHeight'];
+            if ($sizeHeight <= 0 || $sizeHeight > 99999999.99) {
+                $errors[] = '全高は0より大きく、99999999.99以下の数値で入力してください。';
+                $sizeHeight = null;
+            }
+        } else {
+            $errors[] = '全高は有効な数値で入力してください。';
         }
     } else {
         $errors[] = '全高が入力されていません。';
@@ -95,30 +111,28 @@
     // displacement
     $displacement = null;
     if (isset($_POST['displacement']) && $_POST['displacement'] !== '') {
-        $displacement = filter_var($_POST['displacement'], FILTER_VALIDATE_FLOAT);
-        if ($displacement === false || $displacement <= 0 || $displacement > 999.99) {
-            $errors[] = '排気量は0より大きい数値で入力してください。';
-            $displacement = null;
+        if (is_numeric($_POST['displacement'])) {
+            $displacement = (float)$_POST['displacement'];
+            if ($displacement <= 0 || $displacement > 999.99) {
+                $errors[] = '排気量は0より大きく、999.99以下の数値で入力してください。';
+                $displacement = null;
+            }
+        } else {
+            $errors[] = '排気量は有効な数値で入力してください。';
         }
     }
 
     // fuel_economy
     $fuelEconomy = null;
     if (isset($_POST['fuelEconomy']) && $_POST['fuelEconomy'] !== '') {
-        $fuelEconomy = filter_var($_POST['fuelEconomy'], FILTER_VALIDATE_FLOAT);
-        if ($fuelEconomy === false || $fuelEconomy <= 0 || $fuelEconomy > 999.99) {
-            $errors[] = '燃費は0より大きい数値で入力してください。';
-            $fuelEconomy = null;
-        }
-    }
-
-    // HP
-    $hp = null;
-    if (isset($_POST['hp']) && $_POST['hp'] !== '') {
-        $hp = mbTrim($_POST['hp']);
-        if (mb_strlen($hp) > 255) {
-            $errors[] = 'HPのURLは255文字以内で入力してください。';
-            $hp = null;
+        if (is_numeric($_POST['fuelEconomy'])) {
+            $fuelEconomy = (float)$_POST['fuelEconomy'];
+            if ($fuelEconomy <= 0 || $fuelEconomy > 999.99) {
+                $errors[] = '燃費は0より大きく、999.99以下の数値で入力してください。';
+                $fuelEconomy = null;
+            }
+        } else {
+            $errors[] = '燃費は有効な数値で入力してください。';
         }
     }
 
@@ -132,11 +146,22 @@
         }
     }
 
+    // HP
+    $hp = null;
+    if (isset($_POST['hp']) && $_POST['hp'] !== '') {
+        $hp = mbTrim($_POST['hp']);
+        // URLのバリデーションを強化
+        if (!filter_var($hp, FILTER_VALIDATE_URL) || mb_strlen($hp) > 255) {
+            $errors[] = 'HPのURLは有効な形式で255文字以内で入力してください。';
+            $hp = null;
+        }
+    }
+
     if (empty($errors)) {
         try {
             $query = 'INSERT INTO cars
-                    (manufactureName, carName, price, sizeLength, sizeWidth, sizeHeight, engineType, displacement, fuelEconomy, description, hp)
-                    VALUES (:manufactureName, :carName, :price, :sizeLength, :sizeWidth, :sizeHeight, :engineType, :displacement, :fuelEconomy, :description, :hp)';
+                        (manufactureName, carName, price, sizeLength, sizeWidth, sizeHeight, engineType, displacement, fuelEconomy, hp, description)
+                        VALUES (:manufactureName, :carName, :price, :sizeLength, :sizeWidth, :sizeHeight, :engineType, :displacement, :fuelEconomy, :hp, :description)';
 
             $stmt = $dbh->prepare($query);
 
@@ -149,8 +174,8 @@
             $stmt->bindValue(':engineType', $engineType, PDO::PARAM_STR);
             $stmt->bindValue(':displacement', $displacement, PDO::PARAM_STR);
             $stmt->bindValue(':fuelEconomy', $fuelEconomy, PDO::PARAM_STR);
-            $stmt->bindValue(':hp', $hp, PDO::PARAM_STR);
             $stmt->bindValue(':description', $description, PDO::PARAM_STR);
+            $stmt->bindValue(':hp', $hp, PDO::PARAM_STR);
 
             $stmt->execute();
 
@@ -173,4 +198,3 @@
         header('Location: /');
         exit();
     }
-?>

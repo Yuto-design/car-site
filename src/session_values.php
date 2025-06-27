@@ -1,8 +1,4 @@
 <?php
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-
     $form_errors = [];
     $form_old_data = [];
     $form_success_message = '';
