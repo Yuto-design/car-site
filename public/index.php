@@ -26,12 +26,12 @@
     <body>
         <?php
             if (isset($_SESSION['success_message'])) {
-                echo '<p style="color: green;">' . htmlspecialchars($_SESSION['success_message']) . '</p>';
+                echo '<script>alert("' . htmlspecialchars($_SESSION['success_message'], ENT_QUOTES) . '");</script>';
                 unset($_SESSION['success_message']);
             }
             if (isset($_SESSION['form_errors'])) {
                 foreach ($_SESSION['form_errors'] as $error) {
-                    echo '<p style="color: red;">' . htmlspecialchars($error) . '</p>';
+                    echo '<script>alert("' . htmlspecialchars($error, ENT_QUOTES) . '");</script>';
                 }
                 unset($_SESSION['form_errors']);
             }

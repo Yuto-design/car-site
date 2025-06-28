@@ -73,6 +73,25 @@ header li {
 }
 
 /*-- About --*/
+.message-box {
+    margin: 20px auto;
+    padding: 10px 15px;
+    max-width: 600px;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.success-message {
+    color: green;
+    background-color: #eaffea;
+    border: 1px solid green;
+}
+.error-message {
+    color: red;
+    background-color: #ffeaea;
+    border: 1px solid red;
+}
 #about {
     padding: 40px 20px;
     text-align: center;

@@ -21,6 +21,12 @@
         $stmt->execute([$carId]);
 
         $_SESSION['success_message'] = '車両情報を削除しました。';
+        header('Location: /');
+        exit();
+
     } catch (Exception $e) {
         $_SESSION['form_errors'][] = '削除に失敗しました：' . $e->getMessage();
-}
+                header('Location: /');
+        exit();
+    }
+?>
