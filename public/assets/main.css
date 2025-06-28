@@ -172,10 +172,6 @@ header li {
     margin-bottom: 8px;
     font-size: 1.1rem;
 }
-.form-input-title small {
-    color: #e74c3c;
-    margin-left: 5px;
-}
 .size-input-group {
     display: flex;
     justify-content: center;
@@ -208,6 +204,7 @@ header li {
 .input-general[type="file"] {
     padding: 8px;
     border: 1px solid #ccc;
+    color: #34495e;
     background-color: #f9f9f9;
 }
 .input-general:focus {
@@ -228,6 +225,27 @@ header li {
 .input-message:focus {
     border-color: #3498db;
     outline: none;
+}
+#imagePreview {
+    display: block;
+    margin: 10px auto 0;
+    max-width: 30%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+#removeImageButton {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: dimgray;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#removeImageButton:hover {
+    background-color: #dc3545;
 }
 .input-submit-button {
     display: block;
@@ -374,9 +392,24 @@ header li {
 .car-info-details a:hover {
     color: #218838;
 }
+.delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 2;
+}
+.delete-button:hover {
+    background-color: #c82333;
+}
 .no-cars-message {
     font-size: 1.1rem;
-    color: red;
+    color: #dc3545;
     text-align: center;
     padding: 40px 0;
 }

@@ -176,12 +176,17 @@
                         />
 
                         <div class="form-input-title">Car Image</div>
-                            <input
-                                type="file"
-                                name="carImage"
-                                accept="image/*"
-                                class="input-general"
+                        <input
+                            type="file"
+                            name="carImage"
+                            accept="image/*"
+                            class="input-general"
+                            id="carImage"
+                            onchange="previewImage(event)"
                         />
+                        <br>
+                        <img id="imagePreview" style="display: none;" />
+                        <button type="button" id="removeImageButton" style="display: none;" onclick="removeImage()">画像を削除</button>
 
                         <button type="submit" class="input-submit-button">登録する</button>
                     </div>
@@ -273,6 +278,12 @@
                                         <?php endif; ?>
                                     </p>
                                 </div>
+
+                                <form method="post" onsubmit="return confirm('本当に削除しますか？');">
+                                    <input type="hidden" name="action_type" value="delete">
+                                    <input type="hidden" name="car_id" value="<?php echo htmlspecialchars($car['id']); ?>">
+                                    <button type="submit" class="delete-button">削除</button>
+                                </form>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -281,6 +292,35 @@
                 </div>
             </div>
         </section>
+
+        <script>
+            function previewImage(event) {
+                const input = event.target;
+                const preview = document.getElementById('imagePreview');
+                const removeBtn = document.getElementById('removeImageButton');
+
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                        removeBtn.style.display = 'inline-block';
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            function removeImage() {
+                const input = document.getElementById('carImage');
+                const preview = document.getElementById('imagePreview');
+                const removeBtn = document.getElementById('removeImageButton');
+
+                input.value = '';
+                preview.src = '';
+                preview.style.display = 'none';
+                removeBtn.style.display = 'none';
+            }
+        </script>
 
         <script>
             document.getElementById('toggleFilterBtn').addEventListener('click', function () {

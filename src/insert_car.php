@@ -150,30 +150,37 @@
     $hp = null;
     if (isset($_POST['hp']) && $_POST['hp'] !== '') {
         $hp = mbTrim($_POST['hp']);
-        // URLのバリデーションを強化
         if (!filter_var($hp, FILTER_VALIDATE_URL) || mb_strlen($hp) > 255) {
             $errors[] = 'HPのURLは有効な形式で255文字以内で入力してください。';
             $hp = null;
         }
     }
 
-    // Car Image
-    $carImage = null;
-    if (isset($_FILES['carImage']) && $_FILES['carImage']['error'] === UPLOAD_ERR_OK) {
-        $upload_dir = __DIR__ . '/../public/uploads/';
-        if (!is_dir($upload_dir)) {
-            mkdir($upload_dir, 0755, true);
+        // Car Image
+        $carImage = null;
+        if (isset($_FILES['carImage']) && $_FILES['carImage']['error'] === UPLOAD_ERR_OK) {
+            $upload_dir = __DIR__ . '/../public/uploads/';
+            if (!is_dir($upload_dir)) {
+                mkdir($upload_dir, 0755, true);
+            }
+
+            $file_tmp = $_FILES['carImage']['tmp_name'];
+            $file_ext = strtolower(pathinfo($_FILES['carImage']['name'], PATHINFO_EXTENSION));
+            $allowed_exts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+            if (in_array($file_ext, $allowed_exts)) {
+                $file_name = uniqid('car_', true) . '.' . $file_ext;
+                $target_path = $upload_dir . $file_name;
+
+                if (move_uploaded_file($file_tmp, $target_path)) {
+                    $carImage = 'uploads/' . $file_name;
+                } else {
+                    $errors[] = '画像のアップロードに失敗しました。';
+                }
+            } else {
+                $errors[] = '許可されていないファイル形式です。jpg, png, gif, webpのみアップロード可能です。';
+            }
         }
-
-        $file_tmp = $_FILES['carImage']['tmp_name'];
-        $file_name = uniqid('car_', true) . '.' . pathinfo($_FILES['carImage']['name'], PATHINFO_EXTENSION);
-        $target_path = $upload_dir . $file_name;
-
-        if (move_uploaded_file($file_tmp, $target_path)) {
-            $carImage = 'uploads/' . $file_name;
-        }
-    }
-
 
     if (empty($errors)) {
         try {
