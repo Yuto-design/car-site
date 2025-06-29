@@ -7,7 +7,9 @@
             require(__DIR__ . '/../src/insert_car.php');
         } else if ($_POST['action_type'] ==='delete'){
             require(__DIR__ . '/../src/delete_car.php');
-        }
+        } else if ($_POST['action_type'] === 'update') {
+            require(__DIR__ . '/../update_car.php');
+    }
     }
 
     require(__DIR__ . '/../src/session_values.php');
@@ -279,11 +281,18 @@
                                     </p>
                                 </div>
 
-                                <form method="post" onsubmit="return confirm('本当に削除しますか？');">
-                                    <input type="hidden" name="action_type" value="delete">
-                                    <input type="hidden" name="car_id" value="<?php echo htmlspecialchars($car['id']); ?>">
-                                    <button type="submit" class="delete-button">削除</button>
-                                </form>
+                                <div class="card-buttons">
+                                    <form method="get" action="update_car.php">
+                                        <input type="hidden" name="car_id" value="<?php echo htmlspecialchars($car['id']); ?>">
+                                        <button type="submit" class="edit-button">編集</button>
+                                    </form>
+
+                                    <form method="post" onsubmit="return confirm('本当に削除しますか？');">
+                                        <input type="hidden" name="action_type" value="delete">
+                                        <input type="hidden" name="car_id" value="<?php echo htmlspecialchars($car['id']); ?>">
+                                        <button type="submit" class="delete-button">削除</button>
+                                    </form>
+                                </div>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
