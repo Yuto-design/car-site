@@ -187,10 +187,10 @@
                             onchange="previewImage(event)"
                         />
                         <br>
-                        <img id="imagePreview" style="display: none;" />
-                        <button type="button" id="removeImageButton" style="display: none;" onclick="removeImage()">画像を削除</button>
+                        <img id="imagePreview"/>
+                        <button type="button" id="removeImageButton" onclick="removeImage()">Remove Image</button>
 
-                        <button type="submit" class="input-submit-button">登録する</button>
+                        <button type="submit" class="input-submit-button">Registration</button>
                     </div>
                 </form>
             </div>
@@ -284,13 +284,13 @@
                                 <div class="card-buttons">
                                     <form method="get" action="update_car.php">
                                         <input type="hidden" name="car_id" value="<?php echo htmlspecialchars($car['id']); ?>">
-                                        <button type="submit" class="edit-button">編集</button>
+                                        <button type="submit" class="edit-button">Edit</button>
                                     </form>
 
                                     <form method="post" onsubmit="return confirm('本当に削除しますか？');">
                                         <input type="hidden" name="action_type" value="delete">
                                         <input type="hidden" name="car_id" value="<?php echo htmlspecialchars($car['id']); ?>">
-                                        <button type="submit" class="delete-button">削除</button>
+                                        <button type="submit" class="delete-button">Remove</button>
                                     </form>
                                 </div>
                             </div>

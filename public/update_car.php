@@ -183,10 +183,6 @@
                     />
 
                     <div class="form-input-title">Car Image</div>
-                    <?php if (!empty($car['carImage'])): ?>
-                        <img src="<?php echo htmlspecialchars($car['carImage']); ?>" alt="Car Image" style="max-width: 300px; justify-content: center;">
-                        <button type="button" id="removeImageButton" onclick="removeImage()">画像を削除</button>
-                    <?php endif; ?>
                     <input
                         type="file"
                         name="carImage"
@@ -195,12 +191,12 @@
                         id="carImage"
                         onchange="previewImage(event)"
                     />
-                    <br>
-                    <img id="imagePreview" style="display: none;"/>
-                    <button type="button" id="removeImageButton" style="display: none;" onclick="removeImage()">プレビュー画像を削除</button>
+                    <?php if (!empty($car['carImage'])): ?>
+                        <img src="<?php echo htmlspecialchars($car['carImage']); ?>" id="imagePreview" alt="Car Image">
+                        <button type="button" id="removeImageButton" onclick="removeImage()">Remove Image</button>
+                    <?php endif; ?>
 
-
-                    <button type="submit" class="input-submit-button">更新する</button>
+                    <button type="submit" class="input-submit-button">Update</button>
                 </form>
             </div>
         </section>
@@ -219,11 +215,6 @@
                         removeBtn.style.display = 'inline-block';
                     };
                     reader.readAsDataURL(input.files[0]);
-
-                    const currentImageWrapper = document.getElementById('currentImageWrapper');
-                    const removeCurrentBtn = document.getElementById('removeCurrentImageButton');
-                    if (currentImageWrapper) currentImageWrapper.style.display = 'none';
-                    if (removeCurrentBtn) removeCurrentBtn.style.display = 'none';
                 }
             }
 
@@ -236,28 +227,7 @@
                 preview.src = '';
                 preview.style.display = 'none';
                 removeBtn.style.display = 'none';
-
-                const currentImageWrapper = document.getElementById('currentImageWrapper');
-                const removeCurrentBtn = document.getElementById('removeCurrentImageButton');
-                if (currentImageWrapper) currentImageWrapper.style.display = 'block';
-                if (removeCurrentBtn) removeCurrentBtn.style.display = 'inline-block';
-            }
-
-            function removeCurrentImage() {
-                let deleteFlagInput = document.getElementById('deleteCurrentImageFlag');
-                if (!deleteFlagInput) {
-                    deleteFlagInput = document.createElement('input');
-                    deleteFlagInput.type = 'hidden';
-                    deleteFlagInput.name = 'delete_current_image';
-                    deleteFlagInput.id = 'deleteCurrentImageFlag';
-                    deleteFlagInput.value = '1';
-                    document.querySelector('form').appendChild(deleteFlagInput);
-                }
-
-                const currentImageWrapper = document.getElementById('currentImageWrapper');
-                const removeCurrentBtn = document.getElementById('removeCurrentImageButton');
-                if (currentImageWrapper) currentImageWrapper.style.display = 'none';
-                if (removeCurrentBtn) removeCurrentBtn.style.display = 'none';
+                removeFlag.value = '1';
             }
         </script>
     </body>
