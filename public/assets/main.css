@@ -302,6 +302,7 @@ header li {
     position: absolute;
     top: 120px;
     right: 100px;
+    z-index: 500;
     width: 25%;
     color: #000;
     background-color: #f4f4f4;

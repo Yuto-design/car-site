@@ -14,7 +14,6 @@
         $fuelEconomy = $_POST['fuelEconomy'] ?? 0;
         $description = $_POST['description'] ?? '';
         $hp = $_POST['hp'] ?? '';
-
         $carImagePath = null;
         if (isset($_FILES['carImage']) && $_FILES['carImage']['error'] === UPLOAD_ERR_OK) {
             $uploadDir = __DIR__ . '/../public/uploads/';
@@ -227,7 +226,6 @@
                 preview.src = '';
                 preview.style.display = 'none';
                 removeBtn.style.display = 'none';
-                removeFlag.value = '1';
             }
         </script>
     </body>

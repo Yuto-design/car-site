@@ -35,13 +35,12 @@
     }
 
     // price
-    $price = null;
+    $price = '';
     if (isset($_POST['price']) && $_POST['price'] !== '') {
         if (is_numeric($_POST['price'])) {
             $price = (float)$_POST['price'];
             if ($price <= 0 || $price > 99999999.99) {
                 $errors[] = '価格は0より大きく、99999999.99以下の数値で入力してください。';
-                $price = null;
             }
         } else {
             $errors[] = '価格は有効な数値で入力してください。';
@@ -51,13 +50,12 @@
     }
 
     // Size Length
-    $sizeLength = null;
+    $sizeLength = '';
     if (isset($_POST['sizeLength']) && $_POST['sizeLength'] !== '') {
         if (is_numeric($_POST['sizeLength'])) {
             $sizeLength = (float)$_POST['sizeLength'];
             if ($sizeLength <= 0 || $sizeLength > 99999999.99) {
                 $errors[] = '全長は0より大きく、99999999.99以下の数値で入力してください。';
-                $sizeLength = null;
             }
         } else {
             $errors[] = '全長は有効な数値で入力してください。';
@@ -67,13 +65,12 @@
     }
 
     // Size Width
-    $sizeWidth = null;
+    $sizeWidth = '';
     if (isset($_POST['sizeWidth']) && $_POST['sizeWidth'] !== '') {
         if (is_numeric($_POST['sizeWidth'])) {
             $sizeWidth = (float)$_POST['sizeWidth'];
             if ($sizeWidth <= 0 || $sizeWidth > 99999999.99) {
                 $errors[] = '全幅は0より大きく、99999999.99以下の数値で入力してください。';
-                $sizeWidth = null;
             }
         } else {
             $errors[] = '全幅は有効な数値で入力してください。';
@@ -83,13 +80,12 @@
     }
 
     // Size Height
-    $sizeHeight = null;
+    $sizeHeight = '';
     if (isset($_POST['sizeHeight']) && $_POST['sizeHeight'] !== '') {
         if (is_numeric($_POST['sizeHeight'])) {
             $sizeHeight = (float)$_POST['sizeHeight'];
             if ($sizeHeight <= 0 || $sizeHeight > 99999999.99) {
                 $errors[] = '全高は0より大きく、99999999.99以下の数値で入力してください。';
-                $sizeHeight = null;
             }
         } else {
             $errors[] = '全高は有効な数値で入力してください。';
@@ -156,31 +152,31 @@
         }
     }
 
-        // Car Image
-        $carImage = null;
-        if (isset($_FILES['carImage']) && $_FILES['carImage']['error'] === UPLOAD_ERR_OK) {
-            $upload_dir = __DIR__ . '/../public/uploads/';
-            if (!is_dir($upload_dir)) {
-                mkdir($upload_dir, 0755, true);
-            }
-
-            $file_tmp = $_FILES['carImage']['tmp_name'];
-            $file_ext = strtolower(pathinfo($_FILES['carImage']['name'], PATHINFO_EXTENSION));
-            $allowed_exts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-
-            if (in_array($file_ext, $allowed_exts)) {
-                $file_name = uniqid('car_', true) . '.' . $file_ext;
-                $target_path = $upload_dir . $file_name;
-
-                if (move_uploaded_file($file_tmp, $target_path)) {
-                    $carImage = 'uploads/' . $file_name;
-                } else {
-                    $errors[] = '画像のアップロードに失敗しました。';
-                }
-            } else {
-                $errors[] = '許可されていないファイル形式です。jpg, png, gif, webpのみアップロード可能です。';
-            }
+    // Car Image
+    $carImage = null;
+    if (isset($_FILES['carImage']) && $_FILES['carImage']['error'] === UPLOAD_ERR_OK) {
+        $upload_dir = __DIR__ . '/../public/uploads/';
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0755, true);
         }
+
+        $file_tmp = $_FILES['carImage']['tmp_name'];
+        $file_ext = strtolower(pathinfo($_FILES['carImage']['name'], PATHINFO_EXTENSION));
+        $allowed_exts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+        if (in_array($file_ext, $allowed_exts)) {
+            $file_name = uniqid('car_', true) . '.' . $file_ext;
+            $target_path = $upload_dir . $file_name;
+
+            if (move_uploaded_file($file_tmp, $target_path)) {
+                $carImage = 'uploads/' . $file_name;
+            } else {
+                $errors[] = '画像のアップロードに失敗しました。';
+            }
+        } else {
+            $errors[] = '許可されていないファイル形式です。jpg, png, gif, webpのみアップロード可能です。';
+        }
+    }
 
     if (empty($errors)) {
         try {
