@@ -35,7 +35,6 @@
                 foreach ($_SESSION['form_errors'] as $error) {
                     echo '<script>alert("' . htmlspecialchars($error, ENT_QUOTES) . '");</script>';
                 }
-                unset($_SESSION['form_errors']);
             }
         ?>
 
@@ -74,7 +73,23 @@
 
         <!-- -- List of Brands -- -->
         <section id="brands">
-            <h2>List of Brands</h2>
+                <h2>List of Brands</h2>
+
+                <?php
+                    if (!empty($_SESSION['form_errors'])):
+                    ?>
+                        <div style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 15px;">
+                            <ul>
+                            <?php foreach ($_SESSION['form_errors'] as $error): ?>
+                                <li><?= htmlspecialchars($error) ?></li>
+                            <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php
+                        unset($_SESSION['form_errors']);
+                    endif;
+                ?>
+
             <div class="page-cover">
                 <p class="page-title">New Vehicles Registration</p>
                 <hr class="page-divider">

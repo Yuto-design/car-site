@@ -34,7 +34,7 @@
         $errors[] = '車種名が入力されていません。';
     }
 
-    // price
+    // Price
     $price = '';
     if (isset($_POST['price']) && $_POST['price'] !== '') {
         if (is_numeric($_POST['price'])) {
@@ -94,7 +94,7 @@
         $errors[] = '全高が入力されていません。';
     }
 
-    // engine_type
+    // Engine_type
     $engineType = null;
     if (isset($_POST['engineType']) && $_POST['engineType'] !== '') {
         $engineType = mbTrim($_POST['engineType']);
@@ -104,7 +104,7 @@
         }
     }
 
-    // displacement
+    // Displacement
     $displacement = null;
     if (isset($_POST['displacement']) && $_POST['displacement'] !== '') {
         if (is_numeric($_POST['displacement'])) {
@@ -118,7 +118,7 @@
         }
     }
 
-    // fuel_economy
+    // Fuel_economy
     $fuelEconomy = null;
     if (isset($_POST['fuelEconomy']) && $_POST['fuelEconomy'] !== '') {
         if (is_numeric($_POST['fuelEconomy'])) {
@@ -132,7 +132,7 @@
         }
     }
 
-    // description
+    // Description
     $description = null;
     if (isset($_POST['description']) && $_POST['description'] !== '') {
         $description = mbTrim($_POST['description']);
