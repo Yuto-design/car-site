@@ -5,151 +5,171 @@
         return preg_replace('/\A[\p{Cc}\p{Cf}\p{Z}]++|[\p{Cc}\p{Cf}\p{Z}]++\z/u', '', $pString);
     }
 
-    if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-        header('Location: /');
-        exit();
+    // Manufacture Name
+    $is_valid_manufactureName = true;
+    $input_manufactureName = '';
+    if (isset($_POST['manufactureName'])) {
+        $input_manufactureName = mbTrim(str_replace("\r\n", "\n", $_POST['manufactureName']));
+        $_SESSION['input_pre_manufactureName'] = $_POST['manufactureName'];
+    } else {
+        $is_valid_manufactureName = false;
     }
 
-    $errors = [];
-
-    // Manufacture Name
-    $manufactureName = '';
-    if (isset($_POST['manufactureName'])) {
-        $manufactureName = mbTrim(str_replace("\r\n", "\n", $_POST['manufactureName']));
-        if (empty($manufactureName) || mb_strlen($manufactureName) > 100) {
-            $errors[] = 'メーカー名は1～100文字で入力してください。';
-        }
-    } else {
-        $errors[] = 'メーカー名が入力されていません。';
+    if ($is_valid_manufactureName && mb_strlen($input_manufactureName) > 30) {
+        $is_valid_manufactureName = false;
+        $_SESSION['input_error_manufactureName'] = 'メーカー名は30文字以内で入力してください。（現在 ' . mb_strlen($input_manufactureName) . ' 文字）';
     }
 
     // Model
-    $carName = '';
+    $is_valid_carName = true;
+    $input_carName = '';
     if (isset($_POST['carName'])) {
-        $carName = mbTrim(str_replace("\r\n", "\n", $_POST['carName']));
-        if (empty($carName) || mb_strlen($carName) > 100) {
-            $errors[] = '車種名は1～100文字で入力してください。';
-        }
+        $input_carName = mbTrim(str_replace("\r\n", "\n", $_POST['carName']));
+        $_SESSION['input_pre_carName'] = $_POST['carName'];
     } else {
-        $errors[] = '車種名が入力されていません。';
+        $is_valid_carName = false;
+    }
+
+    if ($is_valid_carName && mb_strlen($input_carName) > 100) {
+        $is_valid_carName = false;
+        $_SESSION['input_error_carName'] = '車種名は100文字以内で入力してください。（現在 ' . mb_strlen($input_carName) . ' 文字）';
     }
 
     // Price
-    $price = '';
-    if (isset($_POST['price']) && $_POST['price'] !== '') {
-        if (is_numeric($_POST['price'])) {
-            $price = (float)$_POST['price'];
-            if ($price <= 0 || $price > 99999999.99) {
-                $errors[] = '価格は0より大きく、99999999.99以下の数値で入力してください。';
-            }
-        } else {
-            $errors[] = '価格は有効な数値で入力してください。';
-        }
+    $is_valid_price = true;
+    $input_price = '';
+    if (isset($_POST['price'])) {
+        $input_price = mbTrim(str_replace("\r\n", "\n", $_POST['price']));
+        $_SESSION['input_pre_price'] = $_POST['price'];
     } else {
-        $errors[] = '価格が入力されていません。';
+        $is_valid_price = false;
+    }
+
+    if ($is_valid_price && mb_strlen($input_price) > 10) {
+        $is_valid_price = false;
+        $_SESSION['input_error_price'] = '価格は10桁以内で入力してください。';
     }
 
     // Size Length
-    $sizeLength = '';
-    if (isset($_POST['sizeLength']) && $_POST['sizeLength'] !== '') {
-        if (is_numeric($_POST['sizeLength'])) {
-            $sizeLength = (float)$_POST['sizeLength'];
-            if ($sizeLength <= 0 || $sizeLength > 99999999.99) {
-                $errors[] = '全長は0より大きく、99999999.99以下の数値で入力してください。';
-            }
-        } else {
-            $errors[] = '全長は有効な数値で入力してください。';
-        }
+    $is_valid_sizeLength = true;
+    $input_sizeLength = '';
+    if (isset($_POST['sizeLength'])) {
+        $input_sizeLength = mbTrim(str_replace("\r\n", "\n", $_POST['sizeLength']));
+        $_SESSION['input_pre_sizeLength'] = $_POST['sizeLength'];
     } else {
-        $errors[] = '全長が入力されていません。';
+        $is_valid_sizeLength = false;
+    }
+
+    if ($is_valid_sizeLength && mb_strlen($input_sizeLength) > 4) {
+        $is_valid_sizeLength = false;
+        $_SESSION['input_error_sizeLength'] = '全長は4桁以内で入力してください。';
     }
 
     // Size Width
-    $sizeWidth = '';
-    if (isset($_POST['sizeWidth']) && $_POST['sizeWidth'] !== '') {
-        if (is_numeric($_POST['sizeWidth'])) {
-            $sizeWidth = (float)$_POST['sizeWidth'];
-            if ($sizeWidth <= 0 || $sizeWidth > 99999999.99) {
-                $errors[] = '全幅は0より大きく、99999999.99以下の数値で入力してください。';
-            }
-        } else {
-            $errors[] = '全幅は有効な数値で入力してください。';
-        }
+    $is_valid_sizeWidth = true;
+    $input_sizeWidth = '';
+    if (isset($_POST['sizeWidth'])) {
+        $input_sizeWidth = mbTrim(str_replace("\r\n", "\n", $_POST['sizeWidth']));
+        $_SESSION['input_pre_sizeWidth'] = $_POST['sizeWidth'];
     } else {
-        $errors[] = '全幅が入力されていません。';
+        $is_valid_sizeWidth = false;
     }
+
+    if ($is_valid_sizeWidth && mb_strlen($input_sizeWidth) > 4) {
+        $is_valid_sizeWidth = false;
+        $_SESSION['input_error_sizeWidth'] = '全幅は4桁以内で入力してください。';
+    }
+
 
     // Size Height
-    $sizeHeight = '';
-    if (isset($_POST['sizeHeight']) && $_POST['sizeHeight'] !== '') {
-        if (is_numeric($_POST['sizeHeight'])) {
-            $sizeHeight = (float)$_POST['sizeHeight'];
-            if ($sizeHeight <= 0 || $sizeHeight > 99999999.99) {
-                $errors[] = '全高は0より大きく、99999999.99以下の数値で入力してください。';
-            }
-        } else {
-            $errors[] = '全高は有効な数値で入力してください。';
-        }
+    $is_valid_sizeHeight = true;
+    $input_sizeHeight = '';
+    if (isset($_POST['sizeHeight'])) {
+        $input_sizeHeight = mbTrim(str_replace("\r\n", "\n", $_POST['sizeHeight']));
+        $_SESSION['input_pre_sizeHeight'] = $_POST['sizeHeight'];
     } else {
-        $errors[] = '全高が入力されていません。';
+        $is_valid_sizeHeight = false;
     }
 
+    if ($is_valid_sizeHeight && mb_strlen($input_sizeHeight) > 4) {
+        $is_valid_sizeHeight = false;
+        $_SESSION['input_error_sizeHeight'] = '全高は4桁以内で入力してください。';
+    }
+
+
     // Engine_type
-    $engineType = null;
-    if (isset($_POST['engineType']) && $_POST['engineType'] !== '') {
-        $engineType = mbTrim($_POST['engineType']);
-        if (mb_strlen($engineType) > 50) {
-            $errors[] = 'エンジンタイプは50文字以内で入力してください。';
-            $engineType = null;
-        }
+    $is_valid_engineType = true;
+    $input_engineType = '';
+    if (isset($_POST['engineType'])) {
+        $input_engineType = mbTrim(str_replace("\r\n", "\n", $_POST['engineType']));
+        $_SESSION['input_pre_engineType'] = $_POST['engineType'];
+    } else {
+        $is_valid_engineType = false;
+    }
+
+    if ($is_valid_engineType && mb_strlen($input_engineType) > 30) {
+        $is_valid_engineType = false;
+        $_SESSION['input_error_engineType'] = 'エンジンは30文字以内で入力してください。（現在 ' . mb_strlen($input_carName) . ' 文字）';
     }
 
     // Displacement
-    $displacement = null;
-    if (isset($_POST['displacement']) && $_POST['displacement'] !== '') {
-        if (is_numeric($_POST['displacement'])) {
-            $displacement = (float)$_POST['displacement'];
-            if ($displacement <= 0 || $displacement > 9999.99) {
-                $errors[] = '排気量は0より大きく、9999.99以下の数値で入力してください。';
-                $displacement = null;
-            }
-        } else {
-            $errors[] = '排気量は有効な数値で入力してください。';
-        }
+    $is_valid_displacement = true;
+    $input_displacement = '';
+    if (isset($_POST['displacement'])) {
+        $input_displacement = mbTrim(str_replace("\r\n", "\n", $_POST['displacement']));
+        $_SESSION['input_pre_displacement'] = $_POST['displacement'];
+    } else {
+        $is_valid_displacement = false;
+    }
+
+    if ($is_valid_displacement && mb_strlen($input_displacement) > 10) {
+        $is_valid_displacement = false;
+        $_SESSION['input_error_displacement'] = '排気量は10桁以内で入力してください。';
     }
 
     // Fuel_economy
-    $fuelEconomy = null;
-    if (isset($_POST['fuelEconomy']) && $_POST['fuelEconomy'] !== '') {
-        if (is_numeric($_POST['fuelEconomy'])) {
-            $fuelEconomy = (float)$_POST['fuelEconomy'];
-            if ($fuelEconomy <= 0 || $fuelEconomy > 999.99) {
-                $errors[] = '燃費は0より大きく、999.99以下の数値で入力してください。';
-                $fuelEconomy = null;
-            }
-        } else {
-            $errors[] = '燃費は有効な数値で入力してください。';
-        }
+    $is_valid_fuelEconomy = true;
+    $input_fuelEconomy = '';
+    if (isset($_POST['fuelEconomy'])) {
+        $input_fuelEconomy = mbTrim(str_replace("\r\n", "\n", $_POST['fuelEconomy']));
+        $_SESSION['input_pre_fuelEconomy'] = $_POST['fuelEconomy'];
+    } else {
+        $is_valid_fuelEconomy = false;
+    }
+
+    if ($is_valid_fuelEconomy && mb_strlen($input_fuelEconomy) > 10) {
+        $is_valid_fuelEconomy = false;
+        $_SESSION['input_error_fuelEconomy'] = '燃費は10桁以内で入力してください。';
     }
 
     // Description
-    $description = null;
-    if (isset($_POST['description']) && $_POST['description'] !== '') {
-        $description = mbTrim($_POST['description']);
-        if (mb_strlen($description) > 65535) {
-            $errors[] = '詳細説明が長すぎます。';
-            $description = null;
-        }
+    $is_valid_desplacement = true;
+    $input_desplacement = '';
+    if (isset($_POST['desplacement'])) {
+        $input_desplacement = mbTrim(str_replace("\r\n", "\n", $_POST['desplacement']));
+        $_SESSION['input_pre_desplacement'] = $_POST['desplacement'];
+    } else {
+        $is_valid_desplacement = false;
+    }
+
+    if ($is_valid_desplacement && mb_strlen($input_desplacement) > 255) {
+        $is_valid_desplacement = false;
+        $_SESSION['input_error_desplacement'] = '詳細255文字以内で入力してください。';
     }
 
     // HP
-    $hp = null;
-    if (isset($_POST['hp']) && $_POST['hp'] !== '') {
-        $hp = mbTrim($_POST['hp']);
-        if (!filter_var($hp, FILTER_VALIDATE_URL) || mb_strlen($hp) > 255) {
-            $errors[] = 'HPのURLは有効な形式で255文字以内で入力してください。';
-            $hp = null;
-        }
+    $is_valid_hp = true;
+    $input_hp = '';
+    if (isset($_POST['hp'])) {
+        $input_hp = mbTrim(str_replace("\r\n", "\n", $_POST['hp']));
+        $_SESSION['input_pre_hp'] = $_POST['hp'];
+    } else {
+        $is_valid_hp = false;
+    }
+
+    if ($is_valid_hp && mb_strlen($input_hp) > 255) {
+        $is_valid_hp = false;
+        $_SESSION['input_error_hp'] = '詳細255文字以内で入力してください。';
     }
 
     // Car Image
@@ -178,8 +198,8 @@
         }
     }
 
-    if (empty($errors)) {
-        try {
+    if ($is_valid_manufactureName && $is_valid_carName && $is_valid_price &&
+        $is_valid_sizeLength && $is_valid_sizeWidth && $is_valid_sizeHeight) {
             $query = 'INSERT INTO cars
                         (manufactureName, carName, price, sizeLength, sizeWidth, sizeHeight, engineType, displacement, fuelEconomy, hp, description, carImage)
                         VALUES (:manufactureName, :carName, :price, :sizeLength, :sizeWidth, :sizeHeight, :engineType, :displacement, :fuelEconomy, :hp, :description, :carImage)';
@@ -201,23 +221,33 @@
 
             $stmt->execute();
 
-            $_SESSION['success_message'] = '車両情報が正常に登録されました。';
-            header('Location: /');
-            exit();
-
-        } catch (PDOException $e) {
-            error_log('データベース保存エラー: ' . $e->getMessage());
-            $errors[] = '車両情報の保存中にエラーが発生しました。時間をおいて再度お試しください。';
-
-            $_SESSION['form_errors'] = $errors;
-            $_SESSION['form_data'] = $_POST;
-            header('Location: /');
-            exit();
-        }
+            $_SESSION['action_success_message'] = '車両情報が正常に登録されました。';
+            $_SESSION['action_error_message '] = '';
+            $_SESSION['input_error_manufactureName'] = '';
+            $_SESSION['input_error_carName'] = '';
+            $_SESSION['input_error_price'] = '';
+            $_SESSION['input_error_sizeLength'] = '';
+            $_SESSION['input_error_sizeWidth'] = '';
+            $_SESSION['input_error_sizeHeight'] = '';
+            $_SESSION['input_error_engineType'] = '';
+            $_SESSION['input_error_displacement'] = '';
+            $_SESSION['input_error_fuelEconomy'] = '';
+            $_SESSION['input_error_Description'] = '';
+            $_SESSION['input_pre_manufactureName'] = '';
+            $_SESSION['input_pre_carName'] = '';
+            $_SESSION['input_pre_price'] = '';
+            $_SESSION['input_pre_sizeLength'] = '';
+            $_SESSION['input_pre_sizeWidth'] = '';
+            $_SESSION['input_pre_sizeHeight'] = '';
+            $_SESSION['input_pre_engineType'] = '';
+            $_SESSION['input_pre_displacement'] = '';
+            $_SESSION['input_pre_fuelEconomy'] = '';
+            $_SESSION['input_pre_Description'] = '';
     } else {
-        $_SESSION['form_errors'] = $errors;
-        $_SESSION['form_data'] = $_POST;
-        header('Location: /');
-        exit();
+        $_SESSION['action_success_message'] = '';
+        $_SESSION['action_error_message'] = '入力内容を確認してください';
     }
+
+    header('Location: /');
+    exit();
 ?>

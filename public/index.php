@@ -26,18 +26,6 @@
         <link rel="stylesheet" href="./assets/main.css">
     </head>
     <body>
-        <?php
-            if (isset($_SESSION['success_message'])) {
-                echo '<script>alert("' . htmlspecialchars($_SESSION['success_message'], ENT_QUOTES) . '");</script>';
-                unset($_SESSION['success_message']);
-            }
-            if (isset($_SESSION['form_errors'])) {
-                foreach ($_SESSION['form_errors'] as $error) {
-                    echo '<script>alert("' . htmlspecialchars($error, ENT_QUOTES) . '");</script>';
-                }
-            }
-        ?>
-
         <!-- Header -->
         <header>
             <a href="index.php">Car Introduction</a>
@@ -73,22 +61,18 @@
 
         <!-- -- List of Brands -- -->
         <section id="brands">
-                <h2>List of Brands</h2>
+            <h2>List of Brands</h2>
 
-                <?php
-                    if (!empty($_SESSION['form_errors'])):
-                    ?>
-                        <div style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 15px;">
-                            <ul>
-                            <?php foreach ($_SESSION['form_errors'] as $error): ?>
-                                <li><?= htmlspecialchars($error) ?></li>
-                            <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    <?php
-                        unset($_SESSION['form_errors']);
-                    endif;
-                ?>
+            <?php if (!empty($_SESSION['form_errors'])): ?>
+                <div class="error-box" style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 15px;">
+                    <ul>
+                        <?php foreach ($_SESSION['form_errors'] as $err): ?>
+                            <li><?= htmlspecialchars($err, ENT_QUOTES) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <?php unset($_SESSION['form_errors']); ?>
+            <?php endif; ?>
 
             <div class="page-cover">
                 <p class="page-title">New Vehicles Registration</p>
@@ -98,6 +82,7 @@
                         <input
                             type="text"
                             name="manufactureName"
+                            required
                             maxlength="100"
                             value=""
                             class="input-general"
@@ -107,6 +92,7 @@
                         <input
                             type="text"
                             name="carName"
+                            required
                             maxlength="100"
                             value=""
                             class="input-general"
@@ -116,6 +102,7 @@
                         <input
                             type="number"
                             name="price"
+                            required
                             step="0.01"
                             min="0"
                             value=""
@@ -127,6 +114,7 @@
                             <input
                                 type="number"
                                 name="sizeLength"
+                                required
                                 step="0.01"
                                 min="0"
                                 class="input-size"
@@ -135,6 +123,7 @@
                             <input
                                 type="number"
                                 name="sizeWidth"
+                                required
                                 step="0.01"
                                 min="0"
                                 class="input-size"
@@ -143,6 +132,7 @@
                             <input
                                 type="number"
                                 name="sizeHeight"
+                                required
                                 step="0.01"
                                 min="0"
                                 class="input-size"
