@@ -63,140 +63,189 @@
         <section id="brands">
             <h2>List of Brands</h2>
 
-            <?php if (!empty($_SESSION['form_errors'])): ?>
-                <div class="error-box" style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 15px;">
-                    <ul>
-                        <?php foreach ($_SESSION['form_errors'] as $err): ?>
-                            <li><?= htmlspecialchars($err, ENT_QUOTES) ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-                <?php unset($_SESSION['form_errors']); ?>
-            <?php endif; ?>
+            <?php if ($message['action_success_message'] !== '') { ?>
+                <div class="action-success-area"><?php echo $message['action_success_message']; ?></div>
+            <?php } ?>
+            <?php if ($message['action_error_message'] !== '') { ?>
+                <div class="action-failed-area"><?php echo $message['action_error_message']; ?></div>
+            <?php } ?>
 
             <div class="page-cover">
                 <p class="page-title">New Vehicles Registration</p>
                 <hr class="page-divider">
-                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
+                <form action="/" method="post" enctype="multipart/form-data">
                     <div class="form-input-title">Manufacture Name<small>(Required)</small></div>
-                        <input
-                            type="text"
-                            name="manufactureName"
-                            required
-                            maxlength="100"
-                            value=""
-                            class="input-general"
-                        />
-
-                        <div class="form-input-title">Model<small>(Required)</small></div>
-                        <input
-                            type="text"
-                            name="carName"
-                            required
-                            maxlength="100"
-                            value=""
-                            class="input-general"
-                        />
-
-                        <div class="form-input-title">Price (YEN)<small>(Required)</small></div>
-                        <input
-                            type="number"
-                            name="price"
-                            required
-                            step="0.01"
-                            min="0"
-                            value=""
-                            class="input-general"
-                        />
-
-                        <div class="form-input-title">Size (Length×Width×Height) <small>(Required)</small></div>
-                        <div class="size-input-group">
-                            <input
-                                type="number"
-                                name="sizeLength"
-                                required
-                                step="0.01"
-                                min="0"
-                                class="input-size"
-                            />
-                            <span class="size-separator">×</span>
-                            <input
-                                type="number"
-                                name="sizeWidth"
-                                required
-                                step="0.01"
-                                min="0"
-                                class="input-size"
-                            />
-                            <span class="size-separator">×</span>
-                            <input
-                                type="number"
-                                name="sizeHeight"
-                                required
-                                step="0.01"
-                                min="0"
-                                class="input-size"
-                            />
+                    <input
+                        type="text"
+                        name="manufactureName"
+                        maxlength="100"
+                        value="<?php echo htmlspecialchars($messages['input_pre_manufactureName'], ENT_QUOTES); ?>"
+                        class="input-general"
+                    />
+                    <?php if ($messages['input_error_manufactureName'] !== '') { ?>
+                        <div class="form-input-error">
+                            <?php echo $messages['input_error_manufactureName']; ?>
                         </div>
+                    <?php } ?>
 
-                        <div class="form-input-title">Engine Type（エンジン）</div>
-                        <input
-                            type="text"
-                            name="engineType"
-                            maxlength="50"
-                            value=""
-                            class="input-general"
-                        />
+                    <div class="form-input-title">Model<small>(Required)</small></div>
+                    <input
+                        type="text"
+                        name="carName"
+                        maxlength="100"
+                        value="<?php echo htmlspecialchars($messages['input_pre_carName'], ENT_QUOTES); ?>"
+                        class="input-general"
+                    />
+                    <?php if ($messages['input_error_carName'] !== '') { ?>
+                        <div class="form-input-error">
+                            <?php echo $messages['input_error_carName']; ?>
+                        </div>
+                    <?php } ?>
 
-                        <div class="form-input-title">Displacement（排気量）【cc】)</div>
+                    <div class="form-input-title">Price (YEN)<small>(Required)</small></div>
+                    <input
+                        type="number"
+                        name="price"
+                        step="0.01"
+                        min="0"
+                        value="<?php echo htmlspecialchars($messages['input_pre_price'], ENT_QUOTES); ?>"
+                        class="input-general"
+                    />
+                    <?php if ($messages['input_error_price'] !== '') { ?>
+                        <div class="form-input-error">
+                            <?php echo $messages['input_error_price']; ?>
+                        </div>
+                    <?php } ?>
+
+                    <div class="form-input-title">Size (Length×Width×Height) <small>(Required)</small></div>
+                    <div class="size-input-group">
                         <input
                             type="number"
-                            name="displacement"
+                            name="sizeLength"
                             step="0.01"
                             min="0"
-                            value=""
-                            class="input-general"
+                            value="<?php echo htmlspecialchars($messages['input_pre_sizeLength'], ENT_QUOTES); ?>"
+                            class="input-size"
                         />
-
-                        <div class="form-input-title">Fuel Economy（燃費）【km/L】</div>
+                        <?php if ($messages['input_error_sizeLength'] !== '') { ?>
+                            <div class="form-input-error">
+                                <?php echo $messages['input_error_manufactureName']; ?>
+                            </div>
+                        <?php } ?>
+                        <span class="size-separator">×</span>
                         <input
                             type="number"
-                            name="fuelEconomy"
+                            name="sizeWidth"
                             step="0.01"
                             min="0"
-                            value=""
-                            class="input-general"
+                            value="<?php echo htmlspecialchars($messages['input_pre_sizeWidth'], ENT_QUOTES); ?>"
+                            class="input-size"
                         />
-
-                        <div class="form-input-title">Description（詳細）</div>
-                        <textarea name="description" class="input-message"></textarea>
-                        <input type="hidden" name="action_type" value="insert" />
-
-                        <div class="form-input-title">Official HP Link</div>
+                        <?php if ($messages['input_error_sizeWidth'] !== '') { ?>
+                            <div class="form-input-error">
+                                <?php echo $messages['input_error_sizeWidth']; ?>
+                            </div>
+                        <?php } ?>
+                        <span class="size-separator">×</span>
                         <input
-                            type="url"
-                            name="hp"
-                            maxlength="255"
-                            value=""
-                            class="input-general"
-                            placeholder="https://example.com"
+                            type="number"
+                            name="sizeHeight"
+                            step="0.01"
+                            min="0"
+                            value="<?php echo htmlspecialchars($messages['input_pre_sizeHeight'], ENT_QUOTES); ?>"
+                            class="input-size"
                         />
-
-                        <div class="form-input-title">Car Image</div>
-                        <input
-                            type="file"
-                            name="carImage"
-                            accept="image/*"
-                            class="input-general"
-                            id="carImage"
-                            onchange="previewImage(event)"
-                        />
-                        <br>
-                        <img id="imagePreview"/>
-                        <button type="button" id="removeImageButton" onclick="removeImage()">Remove Image</button>
-
-                        <button type="submit" class="input-submit-button">Registration</button>
+                        <?php if ($messages['input_error_sizeHeight'] !== '') { ?>
+                            <div class="form-input-error">
+                                <?php echo $messages['input_error_sizeHeight']; ?>
+                            </div>
+                        <?php } ?>
                     </div>
+
+                    <div class="form-input-title">Engine Type（エンジン）</div>
+                    <input
+                        type="text"
+                        name="engineType"
+                        maxlength="50"
+                        value="<?php echo htmlspecialchars($messages['input_pre_engineType'], ENT_QUOTES); ?>"
+                        class="input-general"
+                    />
+                    <?php if ($messages['input_error_engineType'] !== '') { ?>
+                        <div class="form-input-error">
+                            <?php echo $messages['input_error_engineType']; ?>
+                        </div>
+                    <?php } ?>
+
+                    <div class="form-input-title">Displacement（排気量）【cc】)</div>
+                    <input
+                        type="number"
+                        name="displacement"
+                        step="0.01"
+                        min="0"
+                        value="<?php echo htmlspecialchars($messages['input_pre_displacement'], ENT_QUOTES); ?>"
+                        class="input-general"
+                    />
+                    <?php if ($messages['input_error_displacement'] !== '') { ?>
+                        <div class="form-input-error">
+                            <?php echo $messages['input_error_displacement']; ?>
+                        </div>
+                    <?php } ?>
+
+                    <div class="form-input-title">Fuel Economy（燃費）【km/L】</div>
+                    <input
+                        type="number"
+                        name="fuelEconomy"
+                        step="0.01"
+                        min="0"
+                        value="<?php echo htmlspecialchars($messages['input_pre_fuelEconomy'], ENT_QUOTES); ?>"
+                        class="input-general"
+                    />
+                    <?php if ($messages['input_error_fuelEconomy'] !== '') { ?>
+                        <div class="form-input-error">
+                            <?php echo $messages['input_error_fuelEconomy']; ?>
+                        </div>
+                    <?php } ?>
+
+                    <div class="form-input-title">Description（詳細）</div>
+                    <textarea name="description" class="input-message">
+                        <?php echo htmlspecialchars($messages['input_pre_description'], ENT_QUOTES); ?>
+                    </textarea>
+                    <?php if ($message['input_error_description'] !== '') { ?>
+                        <div class="form-input-error">
+                            <?php echo $message['input_error_description']; ?>
+                        </div>
+                    <?php } ?>
+                    <input type="hidden" name="action_type" value="insert" />
+
+                    <div class="form-input-title">Official HP Link</div>
+                    <input
+                        type="url"
+                        name="hp"
+                        maxlength="255"
+                        value="<?php echo htmlspecialchars($messages['input_pre_hp'], ENT_QUOTES); ?>"
+                        class="input-general"
+                        placeholder="https://example.com"
+                    />
+                    <?php if ($messages['input_error_hp'] !== '') { ?>
+                        <div class="form-input-error">
+                            <?php echo $messages['input_error_hp']; ?>
+                        </div>
+                    <?php } ?>
+
+                    <div class="form-input-title">Car Image</div>
+                    <input
+                        type="file"
+                        name="carImage"
+                        accept="image/*"
+                        class="input-general"
+                        id="carImage"
+                        onchange="previewImage(event)"
+                    />
+                    <br>
+                    <img id="imagePreview"/>
+                    <button type="button" id="removeImageButton" onclick="removeImage()">Remove Image</button>
+
+                    <button type="submit" class="input-submit-button">Registration</button>
                 </form>
             </div>
         </section>

@@ -11,6 +11,7 @@
     $message['input_error_displacement'] = '';
     $message['input_error_fuelEconomy'] = '';
     $message['input_error_description'] = '';
+    $message['input_error_hp'] = '';
     $message['input_pre_manufactureName'] = '';
     $message['input_pre_carName'] = '';
     $message['input_pre_price'] = '';
@@ -20,7 +21,8 @@
     $message['input_pre_engineType'] = '';
     $message['input_pre_displacement'] = '';
     $message['input_pre_fuelEconomy'] = '';
-    $message['input_pre_Description'] = '';
+    $message['input_pre_description'] = '';
+    $message['input_pre_hp'] = '';
 
     if (isset($_SESSION['action_success_message'])) {
         $message['action_success_message'] = $_SESSION['action_success_message'];
@@ -82,6 +84,11 @@
         unset($_SESSION['input_error_description']);
     }
 
+    if (isset($_SESSION['input_error_hp'])) {
+        $message['input_error_hp'] = $_SESSION['input_error_hp'];
+        unset($_SESSION['input_error_hp']);
+    }
+
     if (isset($_SESSION['input_pre_manufactureName'])) {
         $message['input_pre_manufactureName'] = $_SESSION['input_pre_manufactureName'];
         unset($_SESSION['input_pre_manufactureName']);
@@ -130,5 +137,10 @@
     if (isset($_SESSION['input_pre_description'])) {
         $message['input_pre_description'] = $_SESSION['input_pre_description'];
         unset($_SESSION['input_pre_description']);
+    }
+
+    if (isset($_SESSION['input_pre_hp'])) {
+        $message['input_pre_hp'] = $_SESSION['input_pre_hp'];
+        unset($_SESSION['input_pre_hp']);
     }
 ?>

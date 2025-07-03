@@ -42,12 +42,12 @@
             ]);
         }
 
-        $_SESSION['success_message'] = "編集が完了しました";
+        $_SESSION['action_success_message'] = "編集が完了しました";
         header("Location: index.php");
         exit();
 
     } else {
-        $id = $_GET['car_id'] ?? '';
+        $id = $_GET['id'] ?? '';
         $stmt = $dbh->prepare("SELECT * FROM cars WHERE id = ?");
         $stmt->execute([$id]);
         $car = $stmt->fetch(PDO::FETCH_ASSOC);
