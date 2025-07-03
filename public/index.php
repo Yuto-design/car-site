@@ -63,11 +63,11 @@
         <section id="brands">
             <h2>List of Brands</h2>
 
-            <?php if ($message['action_success_message'] !== '') { ?>
-                <div class="action-success-area"><?php echo $message['action_success_message']; ?></div>
+            <?php if ($messages['action_success_message'] !== '') { ?>
+                <div class="action-success-area"><?php echo $messages['action_success_message']; ?></div>
             <?php } ?>
-            <?php if ($message['action_error_message'] !== '') { ?>
-                <div class="action-failed-area"><?php echo $message['action_error_message']; ?></div>
+            <?php if ($messages['action_error_message'] !== '') { ?>
+                <div class="action-failed-area"><?php echo $messages['action_error_message']; ?></div>
             <?php } ?>
 
             <div class="page-cover">

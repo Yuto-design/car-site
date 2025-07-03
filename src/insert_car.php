@@ -1,6 +1,4 @@
 <?php
-    require_once(__DIR__ . '/../src/db_connect.php');
-
     function mbTrim($pString) {
         return preg_replace('/\A[\p{Cc}\p{Cf}\p{Z}]++|[\p{Cc}\p{Cf}\p{Z}]++\z/u', '', $pString);
     }
@@ -222,7 +220,7 @@
             $stmt->execute();
 
             $_SESSION['action_success_message'] = '車両情報が正常に登録されました。';
-            $_SESSION['action_error_message '] = '';
+            $_SESSION['action_error_message'] = '';
             $_SESSION['input_error_manufactureName'] = '';
             $_SESSION['input_error_carName'] = '';
             $_SESSION['input_error_price'] = '';
@@ -233,6 +231,7 @@
             $_SESSION['input_error_displacement'] = '';
             $_SESSION['input_error_fuelEconomy'] = '';
             $_SESSION['input_error_description'] = '';
+            $_SESSION['input_error_hp'] = '';
             $_SESSION['input_pre_manufactureName'] = '';
             $_SESSION['input_pre_carName'] = '';
             $_SESSION['input_pre_price'] = '';
@@ -243,6 +242,7 @@
             $_SESSION['input_pre_displacement'] = '';
             $_SESSION['input_pre_fuelEconomy'] = '';
             $_SESSION['input_pre_description'] = '';
+            $_SESSION['input_pre_hp'] = '';
     } else {
         $_SESSION['action_success_message'] = '';
         $_SESSION['action_error_message'] = '入力内容を確認してください';
