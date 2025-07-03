@@ -43,9 +43,9 @@
         $is_valid_price = false;
     }
 
-    if ($is_valid_price && mb_strlen($input_price) > 10) {
+    if ($is_valid_price && $input_price === '') {
         $is_valid_price = false;
-        $_SESSION['input_error_price'] = '価格は10桁以内で入力してください。';
+        $_SESSION['input_error_price'] = '価格を入力してください。';
     }
 
     // Size Length
@@ -58,9 +58,9 @@
         $is_valid_sizeLength = false;
     }
 
-    if ($is_valid_sizeLength && mb_strlen($input_sizeLength) > 4) {
+    if ($is_valid_sizeLength && $input_sizeLength === '') {
         $is_valid_sizeLength = false;
-        $_SESSION['input_error_sizeLength'] = '全長は4桁以内で入力してください。';
+        $_SESSION['input_error_sizeLength'] = '全長を入力してください。';
     }
 
     // Size Width
@@ -73,9 +73,9 @@
         $is_valid_sizeWidth = false;
     }
 
-    if ($is_valid_sizeWidth && mb_strlen($input_sizeWidth) > 4) {
+    if ($is_valid_sizeWidth && $input_sizeWidth === '') {
         $is_valid_sizeWidth = false;
-        $_SESSION['input_error_sizeWidth'] = '全幅は4桁以内で入力してください。';
+        $_SESSION['input_error_sizeWidth'] = '全幅を入力してください。';
     }
 
 
@@ -89,9 +89,9 @@
         $is_valid_sizeHeight = false;
     }
 
-    if ($is_valid_sizeHeight && mb_strlen($input_sizeHeight) > 4) {
+    if ($is_valid_sizeHeight && $input_sizeHeight === '') {
         $is_valid_sizeHeight = false;
-        $_SESSION['input_error_sizeHeight'] = '全高は4桁以内で入力してください。';
+        $_SESSION['input_error_sizeHeight'] = '全高を入力してください。';
     }
 
 
@@ -144,7 +144,7 @@
     $is_valid_description = true;
     $input_description = '';
     if (isset($_POST['description'])) {
-        $input_desplacement = mbTrim(str_replace("\r\n", "\n", $_POST['description']));
+        $input_description = mbTrim(str_replace("\r\n", "\n", $_POST['description']));
         $_SESSION['input_pre_description'] = $_POST['description'];
     } else {
         $is_valid_description = false;
@@ -204,17 +204,17 @@
 
             $stmt = $dbh->prepare($query);
 
-            $stmt->bindValue(':manufactureName', $manufactureName, PDO::PARAM_STR);
-            $stmt->bindValue(':carName', $carName, PDO::PARAM_STR);
-            $stmt->bindValue(':price', $price, PDO::PARAM_STR);
-            $stmt->bindValue(':sizeLength', $sizeLength, PDO::PARAM_STR);
-            $stmt->bindValue(':sizeWidth', $sizeWidth, PDO::PARAM_STR);
-            $stmt->bindValue(':sizeHeight', $sizeHeight, PDO::PARAM_STR);
-            $stmt->bindValue(':engineType', $engineType, PDO::PARAM_STR);
-            $stmt->bindValue(':displacement', $displacement, PDO::PARAM_STR);
-            $stmt->bindValue(':fuelEconomy', $fuelEconomy, PDO::PARAM_STR);
-            $stmt->bindValue(':description', $description, PDO::PARAM_STR);
-            $stmt->bindValue(':hp', $hp, PDO::PARAM_STR);
+            $stmt->bindValue(':manufactureName', $input_manufactureName, PDO::PARAM_STR);
+            $stmt->bindValue(':carName', $input_carName, PDO::PARAM_STR);
+            $stmt->bindValue(':price', $input_price === '' ? null : (int)$input_price, PDO::PARAM_INT);
+            $stmt->bindValue(':sizeLength', $input_sizeLength === '' ? null : (int)$input_sizeLength, PDO::PARAM_INT);
+            $stmt->bindValue(':sizeWidth', $input_sizeWidth === '' ? null : (int)$input_sizeWidth, PDO::PARAM_INT);
+            $stmt->bindValue(':sizeHeight', $input_sizeHeight === '' ? null : (int)$input_sizeHeight, PDO::PARAM_INT);
+            $stmt->bindValue(':engineType', $input_engineType, PDO::PARAM_STR);
+            $stmt->bindValue(':displacement', $input_displacement === '' ? null : (int)$input_displacement, PDO::PARAM_INT);
+            $stmt->bindValue(':fuelEconomy', $input_fuelEconomy === '' ? null : (int)$input_fuelEconomy, PDO::PARAM_INT);
+            $stmt->bindValue(':description', $input_description, PDO::PARAM_STR);
+            $stmt->bindValue(':hp', $input_hp, PDO::PARAM_STR);
             $stmt->bindValue(':carImage', $carImage, PDO::PARAM_STR);
 
             $stmt->execute();

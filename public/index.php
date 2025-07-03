@@ -210,9 +210,9 @@
                     <textarea name="description" class="input-message">
                         <?php echo htmlspecialchars($messages['input_pre_description'], ENT_QUOTES); ?>
                     </textarea>
-                    <?php if ($message['input_error_description'] !== '') { ?>
+                    <?php if ($messages['input_error_description'] !== '') { ?>
                         <div class="form-input-error">
-                            <?php echo $message['input_error_description']; ?>
+                            <?php echo $messages['input_error_description']; ?>
                         </div>
                     <?php } ?>
                     <input type="hidden" name="action_type" value="insert" />

@@ -74,25 +74,6 @@ header li {
 }
 
 /*-- About --*/
-.message-box {
-    margin: 20px auto;
-    padding: 10px 15px;
-    max-width: 600px;
-    text-align: center;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 1rem;
-}
-.success-message {
-    color: green;
-    background-color: #eaffea;
-    border: 1px solid green;
-}
-.error-message {
-    color: red;
-    background-color: #ffeaea;
-    border: 1px solid red;
-}
 #about {
     padding: 40px 20px;
     text-align: center;
@@ -192,11 +173,17 @@ header li {
     margin-bottom: 8px;
     font-size: 1.1rem;
 }
+.form-input-error {
+    color: #dc3545;
+}
 .size-input-group {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.5em;
+}
+.size-separator {
+    color: #34495e;
 }
 .input-size {
     width: 100px;
