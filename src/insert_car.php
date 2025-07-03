@@ -143,18 +143,18 @@
     }
 
     // Description
-    $is_valid_desplacement = true;
-    $input_desplacement = '';
-    if (isset($_POST['desplacement'])) {
-        $input_desplacement = mbTrim(str_replace("\r\n", "\n", $_POST['desplacement']));
-        $_SESSION['input_pre_desplacement'] = $_POST['desplacement'];
+    $is_valid_description = true;
+    $input_description = '';
+    if (isset($_POST['description'])) {
+        $input_desplacement = mbTrim(str_replace("\r\n", "\n", $_POST['description']));
+        $_SESSION['input_pre_description'] = $_POST['description'];
     } else {
-        $is_valid_desplacement = false;
+        $is_valid_description = false;
     }
 
-    if ($is_valid_desplacement && mb_strlen($input_desplacement) > 255) {
-        $is_valid_desplacement = false;
-        $_SESSION['input_error_desplacement'] = '詳細255文字以内で入力してください。';
+    if ($is_valid_description && mb_strlen($input_description) > 255) {
+        $is_valid_description = false;
+        $_SESSION['input_error_description'] = '詳細255文字以内で入力してください。';
     }
 
     // HP
@@ -232,7 +232,7 @@
             $_SESSION['input_error_engineType'] = '';
             $_SESSION['input_error_displacement'] = '';
             $_SESSION['input_error_fuelEconomy'] = '';
-            $_SESSION['input_error_Description'] = '';
+            $_SESSION['input_error_description'] = '';
             $_SESSION['input_pre_manufactureName'] = '';
             $_SESSION['input_pre_carName'] = '';
             $_SESSION['input_pre_price'] = '';
@@ -242,7 +242,7 @@
             $_SESSION['input_pre_engineType'] = '';
             $_SESSION['input_pre_displacement'] = '';
             $_SESSION['input_pre_fuelEconomy'] = '';
-            $_SESSION['input_pre_Description'] = '';
+            $_SESSION['input_pre_description'] = '';
     } else {
         $_SESSION['action_success_message'] = '';
         $_SESSION['action_error_message'] = '入力内容を確認してください';
