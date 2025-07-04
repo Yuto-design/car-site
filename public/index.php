@@ -207,9 +207,7 @@
                     <?php } ?>
 
                     <div class="form-input-title">Description（詳細）</div>
-                    <textarea name="description" class="input-message">
-                        <?php echo htmlspecialchars($messages['input_pre_description'], ENT_QUOTES); ?>
-                    </textarea>
+                    <textarea name="description" class="input-message"><?php echo htmlspecialchars($messages['input_pre_description'], ENT_QUOTES); ?></textarea>
                     <?php if ($messages['input_error_description'] !== '') { ?>
                         <div class="form-input-error">
                             <?php echo $messages['input_error_description']; ?>

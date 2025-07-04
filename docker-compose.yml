@@ -50,5 +50,3 @@ services:
     ports:
       - ${DB_ADMIN_PORT:-8083}:80
 
-volumes:
-  db-data:
