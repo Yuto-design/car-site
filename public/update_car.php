@@ -4,7 +4,7 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id'] ?? '';
         $manufactureName = $_POST['manufactureName'] ?? '';
-        $carName = $_POST['carName'] ?? '';
+        $model = $_POST['model'] ?? '';
         $price = $_POST['price'] ?? 0;
         $sizeLength = $_POST['sizeLength'] ?? 0;
         $sizeWidth = $_POST['sizeWidth'] ?? 0;
@@ -29,15 +29,15 @@
         }
 
         if ($carImagePath) {
-            $stmt = $dbh->prepare("UPDATE cars SET manufactureName = ?, carName = ?, price = ?, sizeLength = ?, sizeWidth = ?, sizeHeight = ?, engineType = ?, displacement = ?, fuelEconomy = ?, description = ?, hp = ?, carImage = ? WHERE id = ?");
+            $stmt = $dbh->prepare("UPDATE cars SET manufactureName = ?, model = ?, price = ?, sizeLength = ?, sizeWidth = ?, sizeHeight = ?, engineType = ?, displacement = ?, fuelEconomy = ?, description = ?, hp = ?, carImage = ? WHERE id = ?");
             $stmt->execute([
-                $manufactureName, $carName, $price, $sizeLength, $sizeWidth, $sizeHeight,
+                $manufactureName, $model, $price, $sizeLength, $sizeWidth, $sizeHeight,
                 $engineType, $displacement, $fuelEconomy, $description, $hp, $carImagePath, $id
             ]);
         } else {
-            $stmt = $dbh->prepare("UPDATE cars SET manufactureName = ?, carName = ?, price = ?, sizeLength = ?, sizeWidth = ?, sizeHeight = ?, engineType = ?, displacement = ?, fuelEconomy = ?, description = ?, hp = ? WHERE id = ?");
+            $stmt = $dbh->prepare("UPDATE cars SET manufactureName = ?, model = ?, price = ?, sizeLength = ?, sizeWidth = ?, sizeHeight = ?, engineType = ?, displacement = ?, fuelEconomy = ?, description = ?, hp = ? WHERE id = ?");
             $stmt->execute([
-                $manufactureName, $carName, $price, $sizeLength, $sizeWidth, $sizeHeight,
+                $manufactureName, $model, $price, $sizeLength, $sizeWidth, $sizeHeight,
                 $engineType, $displacement, $fuelEconomy, $description, $hp, $id
             ]);
         }
@@ -47,7 +47,7 @@
         exit();
 
     } else {
-        $id = $_GET['id'] ?? '';
+        $id = $_GET['car_id'] ?? '';
         $stmt = $dbh->prepare("SELECT * FROM cars WHERE id = ?");
         $stmt->execute([$id]);
         $car = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -86,7 +86,7 @@
                         type="text"
                         name="carName"
                         maxlength="100"
-                        value="<?php echo htmlspecialchars($car['carName']); ?>"
+                        value="<?php echo htmlspecialchars($car['model']); ?>"
                         class="input-general"
                         required
                     />

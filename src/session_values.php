@@ -2,7 +2,7 @@
     $messages['action_success_message'] = '';
     $messages['action_error_message'] = '';
     $messages['input_error_manufactureName'] = '';
-    $messages['input_error_carName'] = '';
+    $messages['input_error_model'] = '';
     $messages['input_error_price'] = '';
     $messages['input_error_sizeLength'] = '';
     $messages['input_error_sizeWidth'] = '';
@@ -13,7 +13,7 @@
     $messages['input_error_description'] = '';
     $messages['input_error_hp'] = '';
     $messages['input_pre_manufactureName'] = '';
-    $messages['input_pre_carName'] = '';
+    $messages['input_pre_model'] = '';
     $messages['input_pre_price'] = '';
     $messages['input_pre_sizeLength'] = '';
     $messages['input_pre_sizeWidth'] = '';
@@ -39,9 +39,9 @@
         unset($_SESSION['input_error_manufactureName']);
     }
 
-    if (isset($_SESSION['input_error_carName'])) {
-        $messages['input_error_carName'] = $_SESSION['input_error_carName'];
-        unset($_SESSION['input_error_carName']);
+    if (isset($_SESSION['input_error_model'])) {
+        $messages['input_error_model'] = $_SESSION['input_error_model'];
+        unset($_SESSION['input_error_model']);
     }
 
     if (isset($_SESSION['input_error_price'])) {
@@ -94,9 +94,9 @@
         unset($_SESSION['input_pre_manufactureName']);
     }
 
-    if (isset($_SESSION['input_pre_carName'])) {
-        $messages['input_pre_carName'] = $_SESSION['input_pre_carName'];
-        unset($_SESSION['input_pre_carName']);
+    if (isset($_SESSION['input_pre_model'])) {
+        $messages['input_pre_model'] = $_SESSION['input_pre_model'];
+        unset($_SESSION['input_pre_model']);
     }
 
     if (isset($_SESSION['input_pre_price'])) {

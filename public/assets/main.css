@@ -174,16 +174,14 @@ header li {
     font-size: 1.1rem;
 }
 .form-input-error {
-    color: #dc3545;
+    color: #c82333;
 }
 .size-input-group {
+    color: #34495e;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.5em;
-}
-.size-separator {
-    color: #34495e;
 }
 .input-size {
     width: 100px;

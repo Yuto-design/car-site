@@ -74,7 +74,7 @@
                 <p class="page-title">New Vehicles Registration</p>
                 <hr class="page-divider">
                 <form action="/" method="post" enctype="multipart/form-data">
-                    <div class="form-input-title">Manufacture Name<small>(Required)</small></div>
+                    <div class="form-input-title">Manufacture Name<small> (Required)</small></div>
                     <input
                         type="text"
                         name="manufactureName"
@@ -88,21 +88,21 @@
                         </div>
                     <?php } ?>
 
-                    <div class="form-input-title">Model<small>(Required)</small></div>
+                    <div class="form-input-title">Model<small> (Required)</small></div>
                     <input
                         type="text"
-                        name="carName"
+                        name="model"
                         maxlength="100"
-                        value="<?php echo htmlspecialchars($messages['input_pre_carName'], ENT_QUOTES); ?>"
+                        value="<?php echo htmlspecialchars($messages['input_pre_model'], ENT_QUOTES); ?>"
                         class="input-general"
                     />
-                    <?php if ($messages['input_error_carName'] !== '') { ?>
+                    <?php if ($messages['input_error_model'] !== '') { ?>
                         <div class="form-input-error">
-                            <?php echo $messages['input_error_carName']; ?>
+                            <?php echo $messages['input_error_model']; ?>
                         </div>
                     <?php } ?>
 
-                    <div class="form-input-title">Price (YEN)<small>(Required)</small></div>
+                    <div class="form-input-title">Price 【YEN】<small> (Required)</small></div>
                     <input
                         type="number"
                         name="price"
@@ -117,7 +117,7 @@
                         </div>
                     <?php } ?>
 
-                    <div class="form-input-title">Size (Length×Width×Height) <small>(Required)</small></div>
+                    <div class="form-input-title">Size (Length×Width×Height) 【mm】<small> (Required)</small></div>
                     <div class="size-input-group">
                         <input
                             type="number"
@@ -129,7 +129,7 @@
                         />
                         <?php if ($messages['input_error_sizeLength'] !== '') { ?>
                             <div class="form-input-error">
-                                <?php echo $messages['input_error_manufactureName']; ?>
+                                <?php echo $messages['input_error_sizeLength']; ?>
                             </div>
                         <?php } ?>
                         <span class="size-separator">×</span>
@@ -176,7 +176,7 @@
                         </div>
                     <?php } ?>
 
-                    <div class="form-input-title">Displacement（排気量）【cc】)</div>
+                    <div class="form-input-title">Displacement（排気量） 【cc】)</div>
                     <input
                         type="number"
                         name="displacement"
@@ -191,7 +191,7 @@
                         </div>
                     <?php } ?>
 
-                    <div class="form-input-title">Fuel Economy（燃費）【km/L】</div>
+                    <div class="form-input-title">Fuel Economy（燃費） 【km/L】</div>
                     <input
                         type="number"
                         name="fuelEconomy"
@@ -312,10 +312,10 @@
                     <?php if (!empty($cars)): ?>
                         <?php foreach ($cars as $car): ?>
                             <div class="car-info-details" style="background-image: url('<?php echo htmlspecialchars($car['carImage']); ?>');">
-                                <h3 class="card-maintitle"><?php echo htmlspecialchars($car['manufactureName'] . ' ' . $car['carName']); ?></h3>
+                                <h3 class="card-maintitle"><?php echo htmlspecialchars($car['manufactureName'] . ' ' . $car['model']); ?></h3>
                                 <div class="car-details">
                                     <p><strong>Price：</strong> <?php echo number_format($car['price']); ?> YEN</p>
-                                    <p><strong>Size (L×W×H)：</strong>
+                                    <p><strong>Size (L×W×H) 【mm】 ：</strong>
                                         <?php
                                             echo number_format($car['sizeLength']) . '×' .
                                             number_format($car['sizeWidth']) . '×' .

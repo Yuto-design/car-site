@@ -13,24 +13,24 @@
         $is_valid_manufactureName = false;
     }
 
-    if ($is_valid_manufactureName && mb_strlen($input_manufactureName) > 30) {
+    if ($is_valid_manufactureName && $input_manufactureName === '') {
         $is_valid_manufactureName = false;
-        $_SESSION['input_error_manufactureName'] = 'メーカー名は30文字以内で入力してください。（現在 ' . mb_strlen($input_manufactureName) . ' 文字）';
+        $_SESSION['input_error_manufactureName'] = 'メーカー名を入力してください。';
     }
 
     // Model
-    $is_valid_carName = true;
-    $input_carName = '';
-    if (isset($_POST['carName'])) {
-        $input_carName = mbTrim(str_replace("\r\n", "\n", $_POST['carName']));
-        $_SESSION['input_pre_carName'] = $_POST['carName'];
+    $is_valid_model = true;
+    $input_model = '';
+    if (isset($_POST['model'])) {
+        $input_model = mbTrim(str_replace("\r\n", "\n", $_POST['model']));
+        $_SESSION['input_pre_model'] = $_POST['model'];
     } else {
-        $is_valid_carName = false;
+        $is_valid_model = false;
     }
 
-    if ($is_valid_carName && mb_strlen($input_carName) > 100) {
-        $is_valid_carName = false;
-        $_SESSION['input_error_carName'] = '車種名は100文字以内で入力してください。（現在 ' . mb_strlen($input_carName) . ' 文字）';
+    if ($is_valid_model && $input_model === '') {
+        $is_valid_model = false;
+        $_SESSION['input_error_model'] = '車種名を入力してください。';
     }
 
     // Price
@@ -196,16 +196,16 @@
         }
     }
 
-    if ($is_valid_manufactureName && $is_valid_carName && $is_valid_price &&
+    if ($is_valid_manufactureName && $is_valid_model && $is_valid_price &&
         $is_valid_sizeLength && $is_valid_sizeWidth && $is_valid_sizeHeight) {
             $query = 'INSERT INTO cars
-                        (manufactureName, carName, price, sizeLength, sizeWidth, sizeHeight, engineType, displacement, fuelEconomy, hp, description, carImage)
-                        VALUES (:manufactureName, :carName, :price, :sizeLength, :sizeWidth, :sizeHeight, :engineType, :displacement, :fuelEconomy, :hp, :description, :carImage)';
+                        (manufactureName, model, price, sizeLength, sizeWidth, sizeHeight, engineType, displacement, fuelEconomy, hp, description, carImage)
+                        VALUES (:manufactureName, :model, :price, :sizeLength, :sizeWidth, :sizeHeight, :engineType, :displacement, :fuelEconomy, :hp, :description, :carImage)';
 
             $stmt = $dbh->prepare($query);
 
             $stmt->bindValue(':manufactureName', $input_manufactureName, PDO::PARAM_STR);
-            $stmt->bindValue(':carName', $input_carName, PDO::PARAM_STR);
+            $stmt->bindValue(':model', $input_model, PDO::PARAM_STR);
             $stmt->bindValue(':price', $input_price === '' ? null : (int)$input_price, PDO::PARAM_INT);
             $stmt->bindValue(':sizeLength', $input_sizeLength === '' ? null : (int)$input_sizeLength, PDO::PARAM_INT);
             $stmt->bindValue(':sizeWidth', $input_sizeWidth === '' ? null : (int)$input_sizeWidth, PDO::PARAM_INT);
@@ -222,7 +222,7 @@
             $_SESSION['action_success_message'] = '車両情報が正常に登録されました。';
             $_SESSION['action_error_message'] = '';
             $_SESSION['input_error_manufactureName'] = '';
-            $_SESSION['input_error_carName'] = '';
+            $_SESSION['input_error_model'] = '';
             $_SESSION['input_error_price'] = '';
             $_SESSION['input_error_sizeLength'] = '';
             $_SESSION['input_error_sizeWidth'] = '';
@@ -233,7 +233,7 @@
             $_SESSION['input_error_description'] = '';
             $_SESSION['input_error_hp'] = '';
             $_SESSION['input_pre_manufactureName'] = '';
-            $_SESSION['input_pre_carName'] = '';
+            $_SESSION['input_pre_model'] = '';
             $_SESSION['input_pre_price'] = '';
             $_SESSION['input_pre_sizeLength'] = '';
             $_SESSION['input_pre_sizeWidth'] = '';
