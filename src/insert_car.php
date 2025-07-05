@@ -180,18 +180,11 @@
 
         $file_tmp = $_FILES['carImage']['tmp_name'];
         $file_ext = strtolower(pathinfo($_FILES['carImage']['name'], PATHINFO_EXTENSION));
-        $allowed_exts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        $file_name = uniqid('car_', true) . '.' . $file_ext;
+        $target_path = $upload_dir . $file_name;
 
-        if (in_array($file_ext, $allowed_exts)) {
-            $file_name = uniqid('car_', true) . '.' . $file_ext;
-            $target_path = $upload_dir . $file_name;
-
-            if (move_uploaded_file($file_tmp, $target_path)) {
-                $carImage = 'uploads/' . $file_name;
-            } else {
-                $errors[] = '画像のアップロードに失敗しました。';
-            }
-        }
+        move_uploaded_file($file_tmp, $target_path);
+        $carImage = 'uploads/' . $file_name;
     }
 
     if ($is_valid_manufactureName && $is_valid_model && $is_valid_price &&
@@ -217,7 +210,6 @@
 
             $stmt->execute();
 
-            $_SESSION['action_success_message'] = '車両情報が正常に登録されました。';
             $_SESSION['action_error_message'] = '';
             $_SESSION['input_error_manufactureName'] = '';
             $_SESSION['input_error_model'] = '';
@@ -241,9 +233,6 @@
             $_SESSION['input_pre_fuelEconomy'] = '';
             $_SESSION['input_pre_description'] = '';
             $_SESSION['input_pre_hp'] = '';
-    } else {
-        $_SESSION['action_success_message'] = '';
-        $_SESSION['action_error_message'] = '入力内容を確認してください';
     }
 
     header('Location: /');

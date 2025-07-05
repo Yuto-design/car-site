@@ -19,16 +19,7 @@
                     unlink($imagePath);
                 }
             }
-
-            $_SESSION['action_success_message'] = '削除が完了しました';
-            $_SESSION['action_error_message'] = '';
-        } else {
-            $_SESSION['action_success_message'] = '';
-            $_SESSION['action_error_message'] = '対象の投稿が見つかりませんでした';
         }
-    } else {
-        $_SESSION['action_success_message'] = '';
-        $_SESSION['action_error_message'] = 'id がありません';
     }
 
     header('Location: /');

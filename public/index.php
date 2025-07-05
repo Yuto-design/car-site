@@ -63,13 +63,6 @@
         <section id="brands">
             <h2>List of Brands</h2>
 
-            <?php if ($messages['action_success_message'] !== '') { ?>
-                <div class="action-success-area"><?php echo $messages['action_success_message']; ?></div>
-            <?php } ?>
-            <?php if ($messages['action_error_message'] !== '') { ?>
-                <div class="action-failed-area"><?php echo $messages['action_error_message']; ?></div>
-            <?php } ?>
-
             <div class="page-cover">
                 <p class="page-title">New Vehicles Registration</p>
                 <hr class="page-divider">
@@ -261,7 +254,7 @@
                                 $selectedManufacturers = [$selectedManufacturers];
                             }
 
-                            $stmtMakers = $dbh->query("SELECT DISTINCT manufactureName FROM cars ORDER BY manufactureName");
+                            $stmtMakers = $dbh->query("SELECT DISTINCT manufactureName FROM cars ORDER BY manufactureName ASC");
                             while ($row = $stmtMakers->fetch(PDO::FETCH_ASSOC)) {
                                 $name = htmlspecialchars($row['manufactureName']);
                                 $checked = in_array($row['manufactureName'], $selectedManufacturers) ? 'checked' : '';
@@ -282,11 +275,11 @@
 
                     if (!empty($selectedManufacturers)) {
                         $placeholders = implode(',', array_fill(0, count($selectedManufacturers), '?'));
-                        $sql = "SELECT * FROM cars WHERE manufactureName IN ($placeholders) ORDER BY id DESC";
+                        $sql = "SELECT * FROM cars WHERE manufactureName IN ($placeholders) ORDER BY manufactureName ASC";
                         $stmt = $dbh->prepare($sql);
                         $stmt->execute($selectedManufacturers);
                     } else {
-                        $sql = "SELECT * FROM cars ORDER BY id DESC";
+                        $sql = "SELECT * FROM cars ORDER BY manufactureName ASC";
                         $stmt = $dbh->prepare($sql);
                         $stmt->execute();
                     }

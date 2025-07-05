@@ -1,6 +1,4 @@
 <?php
-    $messages['action_success_message'] = '';
-    $messages['action_error_message'] = '';
     $messages['input_error_manufactureName'] = '';
     $messages['input_error_model'] = '';
     $messages['input_error_price'] = '';
@@ -23,16 +21,6 @@
     $messages['input_pre_fuelEconomy'] = '';
     $messages['input_pre_description'] = '';
     $messages['input_pre_hp'] = '';
-
-    if (isset($_SESSION['action_success_message'])) {
-        $messages['action_success_message'] = $_SESSION['action_success_message'];
-        unset($_SESSION['action_success_message']);
-    }
-
-    if (isset($_SESSION['action_error_message'])) {
-        $messages['action_error_message'] = $_SESSION['action_error_message'];
-        unset($_SESSION['action_error_message']);
-    }
 
     if (isset($_SESSION['input_error_manufactureName'])) {
         $messages['input_error_manufactureName'] = $_SESSION['input_error_manufactureName'];
