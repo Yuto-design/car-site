@@ -46,6 +46,14 @@
             </div>
         </div>
 
+        <?php
+            $stmtCounts = $dbh->query("SELECT manufactureName, COUNT(*) AS count FROM cars GROUP BY manufactureName");
+            $manufacturerCounts = $stmtCounts->fetchAll(PDO::FETCH_ASSOC);
+
+            $stmtTotal = $dbh->query("SELECT COUNT(*) AS total FROM cars");
+            $totalCount = $stmtTotal->fetch(PDO::FETCH_ASSOC)['total'];
+        ?>
+
         <!-- About -->
         <section id="about">
             <h2>About</h2>
@@ -56,8 +64,46 @@
                     当サイトは、そんなあなたの疑問や不安を解消するための自動車紹介サイトです。<br>
                     各メーカーの車種を徹底比較し、詳細なデータと分かりやすい解説で、あなたのライフスタイルにぴったりの一台を見つけるお手伝いをします。
                 </h4>
+                <h3>登録状況</h3>
+                <div class="stats-container">
+                    <div class="stats-left">
+                        <?php foreach ($manufacturerCounts as $row): ?>
+                            <div class="stat-box">
+                                <p class="stat-label"><?php echo htmlspecialchars($row['manufactureName']); ?></p>
+                                <p class="stat-number" data-target="<?php echo $row['count']; ?>">0</p>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="stats-right">
+                        <div class="stat-box">
+                            <p class="stat-label">総登録台数</p>
+                            <p class="stat-number" data-target="<?php echo $totalCount; ?>">0</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const counters = document.querySelectorAll(".stat-number");
+                counters.forEach(counter => {
+                    const updateCount = () => {
+                        const target = +counter.getAttribute("data-target");
+                        const current = +counter.innerText;
+                        const increment = Math.max(1, Math.floor(target / 100));
+
+                        if (current < target) {
+                            counter.innerText = current + increment;
+                            setTimeout(updateCount, 20);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCount();
+                });
+            });
+        </script>
 
         <!-- -- List of Brands -- -->
         <section id="brands">
