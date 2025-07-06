@@ -1,5 +1,4 @@
 <?php
-
     if (isset($_POST['car_id']) && $_POST['car_id']) {
         $id = (int)$_POST['car_id'];
 

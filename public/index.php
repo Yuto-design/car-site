@@ -388,9 +388,9 @@
                                         <button type="submit" class="delete-button">Remove</button>
                                     </form>
 
-                                    <form method="post" action="favorite.php">
+                                    <form method="post" action="favorite_car.php">
                                         <input type="hidden" name="car_id" value="<?php echo $car['id']; ?>">
-                                        <button type="submit" class="favorite-button">★</button>
+                                        <button type="submit" class="favorite-button">Favorite</button>
                                     </form>
                                 </div>
                             </div>
@@ -431,6 +431,13 @@
                                             なし
                                         <?php endif; ?>
                                     </p>
+                                </div>
+
+                                <div class="card-buttons">
+                                    <form method="post" action="unfavorite_car.php">
+                                        <input type="hidden" name="car_id" value="<?php echo htmlspecialchars($car['id']); ?>">
+                                        <button type="submit" class="unfavorite-button">Remove</button>
+                                    </form>
                                 </div>
                             </div>
                         <?php endforeach; ?>

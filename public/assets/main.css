@@ -439,7 +439,7 @@ header li {
     gap: 10px;
     z-index: 2;
 }
-.edit-button, .delete-button, .favorite-button {
+.edit-button, .delete-button, .favorite-button, .unfavorite-button {
     width: 80px;
     padding: 5px 10px;
     border: none;
@@ -464,6 +464,12 @@ header li {
 }
 .favorite-button:hover {
     background-color: #059100;
+}
+.unfavorite-button {
+    background-color: #dc3545;
+}
+.unfavorite-button:hover {
+    background-color: #c82333;
 }
 .no-cars-message {
     font-size: 1.1rem;

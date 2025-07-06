@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     if (!isset($_POST['car_id'])) {
         header('Location: /');
         exit;
