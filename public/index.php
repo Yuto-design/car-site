@@ -12,6 +12,10 @@
     }
     }
 
+    if (!isset($_SESSION['favorites'])) {
+        $_SESSION['favorites'] = [];
+    }
+
     require(__DIR__ . '/../src/session_values.php');
 
 ?>
@@ -383,11 +387,55 @@
                                         <input type="hidden" name="car_id" value="<?php echo htmlspecialchars($car['id']); ?>">
                                         <button type="submit" class="delete-button">Remove</button>
                                     </form>
+
+                                    <form method="post" action="favorite.php">
+                                        <input type="hidden" name="car_id" value="<?php echo $car['id']; ?>">
+                                        <button type="submit" class="favorite-button">★</button>
+                                    </form>
                                 </div>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <p class="no-cars-message">現在、掲載中の自動車はありません。</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <div class="page-cover">
+                <?php
+                    $favCars = [];
+                    if (!empty($_SESSION['favorites'])) {
+                        $placeholders = implode(',', array_fill(0, count($_SESSION['favorites']), '?'));
+                        $sqlFavs = "SELECT * FROM cars WHERE id IN ($placeholders)";
+                        $stmtFavs = $dbh->prepare($sqlFavs);
+                        $stmtFavs->execute($_SESSION['favorites']);
+                        $favCars = $stmtFavs->fetchAll(PDO::FETCH_ASSOC);
+                    }
+                ?>
+
+                <h2 class="page-title">Favorites List</h2>
+                <hr class="page-divider" />
+                <div class="car-info-grid">
+                    <?php if (!empty($favCars)): ?>
+                        <?php foreach ($favCars as $car): ?>
+                            <div class="car-info-details" style="background-image: url('<?php echo htmlspecialchars($car['carImage']); ?>');">
+                                <h3 class="card-maintitle"><?php echo htmlspecialchars($car['manufactureName'] . ' ' . $car['model']); ?></h3>
+                                <div class="car-details">
+                                    <p><strong>Price：</strong> <?php echo number_format($car['price']); ?> YEN</p>
+                                    <p><strong>Engine：</strong> <?php echo htmlspecialchars($car['engineType']); ?></p>
+                                    <p><strong>Description：</strong><br> <?php echo nl2br(htmlspecialchars($car['description'])); ?></p>
+                                    <p><strong>Official HP：</strong>
+                                        <?php if (!empty($car['hp'])): ?>
+                                            <a href="<?php echo htmlspecialchars($car['hp']); ?>" target="_blank" rel="noopener noreferrer">HP Link</a>
+                                        <?php else: ?>
+                                            なし
+                                        <?php endif; ?>
+                                    </p>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p class="no-cars-message">お気に入り登録された車両はありません。</p>
                     <?php endif; ?>
                 </div>
             </div>
