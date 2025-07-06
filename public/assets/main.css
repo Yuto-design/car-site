@@ -439,7 +439,8 @@ header li {
     gap: 10px;
     z-index: 2;
 }
-.edit-button, .delete-button, .favorite-button, .unfavorite-button {
+.edit-button, .delete-button, .favorite-button,
+.unfavorite-button, .compare-button {
     width: 80px;
     padding: 5px 10px;
     border: none;
@@ -464,6 +465,12 @@ header li {
 }
 .favorite-button:hover {
     background-color: #059100;
+}
+.compare-button {
+    background-color: #d0e228;
+}
+.compare-button:hover {
+    background-color: #a8a61a;
 }
 .unfavorite-button {
     background-color: #dc3545;

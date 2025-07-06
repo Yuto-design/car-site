@@ -392,6 +392,11 @@
                                         <input type="hidden" name="car_id" value="<?php echo $car['id']; ?>">
                                         <button type="submit" class="favorite-button">Favorite</button>
                                     </form>
+
+                                    <form method="post" action="compare_car/compare_car.php">
+                                        <input type="hidden" name="car_id" value="<?php echo $car['id']; ?>">
+                                        <button type="submit" class="compare-button">⇆ Compare</button>
+                                    </form>
                                 </div>
                             </div>
                         <?php endforeach; ?>
