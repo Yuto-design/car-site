@@ -435,7 +435,6 @@ header li {
     top: 10px;
     right: 10px;
     display: flex;
-    flex-direction: column;
     gap: 10px;
     z-index: 2;
 }

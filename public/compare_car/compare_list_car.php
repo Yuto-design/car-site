@@ -24,37 +24,74 @@
         <?php if (!empty($compareCars)): ?>
             <table border="1">
                 <tr>
-                    <th>Model</th>
-                    <th>Price</th>
-                    <th>Size (L×W×H)</th>
-                    <th>Engine</th>
-                    <th>Displacement</th>
-                    <th>Fuel Economy</th>
-                    <th>Description</th>
-                    <th>Remove</th>
+                    <th>項目</th>
+                    <?php foreach ($compareCars as $car): ?>
+                        <th><?php echo htmlspecialchars($car['manufactureName'] . ' ' . $car['model']); ?></th>
+                    <?php endforeach; ?>
                 </tr>
-                <?php foreach ($compareCars as $car): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($car['manufactureName'] . ' ' . $car['model']); ?></td>
+                <tr>
+                    <td>価格</td>
+                    <?php foreach ($compareCars as $car): ?>
                         <td><?php echo number_format($car['price']); ?> YEN</td>
+                    <?php endforeach; ?>
+                </tr>
+                <tr>
+                    <td>サイズ (L×W×H)</td>
+                    <?php foreach ($compareCars as $car): ?>
                         <td>
                             <?php echo number_format($car['sizeLength']) . '×' .
-                                number_format($car['sizeWidth']) . '×' .
-                                number_format($car['sizeHeight']);
-                            ?>
+                                        number_format($car['sizeWidth']) . '×' .
+                                        number_format($car['sizeHeight']); ?>
                         </td>
+                    <?php endforeach; ?>
+                </tr>
+                <tr>
+                    <td>エンジンタイプ</td>
+                    <?php foreach ($compareCars as $car): ?>
                         <td><?php echo htmlspecialchars($car['engineType']); ?></td>
+                    <?php endforeach; ?>
+                </tr>
+                <tr>
+                    <td>排気量</td>
+                    <?php foreach ($compareCars as $car): ?>
                         <td><?php echo htmlspecialchars($car['displacement']); ?> cc</td>
+                    <?php endforeach; ?>
+                </tr>
+                <tr>
+                    <td>燃費</td>
+                    <?php foreach ($compareCars as $car): ?>
                         <td><?php echo htmlspecialchars($car['fuelEconomy']); ?> km/L</td>
+                    <?php endforeach; ?>
+                </tr>
+                <tr>
+                    <td>詳細</td>
+                    <?php foreach ($compareCars as $car): ?>
                         <td><?php echo nl2br(htmlspecialchars($car['description'])); ?></td>
+                    <?php endforeach; ?>
+                </tr>
+                <tr>
+                    <td>画像</td>
+                    <?php foreach ($compareCars as $car): ?>
+                        <td>
+                            <?php if (!empty($car['carImage'])): ?>
+                                <img src="/uploads/<?php echo htmlspecialchars(basename($car['carImage'])); ?>" alt="Car Image">
+                            <?php else: ?>
+                                なし
+                            <?php endif; ?>
+                        </td>
+                    <?php endforeach; ?>
+                </tr>
+                <tr>
+                    <td>比較から削除</td>
+                    <?php foreach ($compareCars as $car): ?>
                         <td>
                             <form method="post" action="remove_compare_car.php">
                                 <input type="hidden" name="car_id" value="<?php echo $car['id']; ?>">
                                 <button type="submit">Remove</button>
                             </form>
                         </td>
-                    </tr>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </tr>
             </table>
         <?php else: ?>
             <p>No cars selected for comparison.</p>

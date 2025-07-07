@@ -1,10 +1,9 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    background-color: dimgray;
     margin: 40px;
     padding: 0;
     color: #fff;
-    background-color: dimgray;
 }
 h2 {
     text-align: center;
@@ -17,11 +16,13 @@ table {
     border-collapse: collapse;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
 }
 th, td {
     padding: 12px 15px;
     border: 1px solid #dee2e6;
-    text-align: left;
+    text-align: center;
+    vertical-align: middle;
     color: dimgray;
 }
 th {
@@ -30,10 +31,16 @@ th {
     font-weight: bold;
 }
 tr:nth-child(even) {
-    background-color: #fff;
+    background-color: #f8f9fa;
 }
 tr:hover {
     background-color: #e9f5ff;
+}
+table img {
+    max-width: 150px;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 button {
     padding: 6px 12px;
