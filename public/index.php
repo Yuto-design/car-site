@@ -395,7 +395,7 @@
 
                                     <form method="post" action="compare_car/compare_car.php">
                                         <input type="hidden" name="car_id" value="<?php echo $car['id']; ?>">
-                                        <button type="submit" class="compare-button">⇆ Compare</button>
+                                        <button type="submit" class="compare-button">Compare</button>
                                     </form>
                                 </div>
                             </div>

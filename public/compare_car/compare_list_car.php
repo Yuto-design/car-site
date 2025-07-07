@@ -16,7 +16,7 @@
 <!DOCTYPE html>
     <head>
         <title>Compare Cars</title>
-        <link rel="stylesheet" href="./assets/main.css">
+        <link rel="stylesheet" href="/../assets/compare_car.css">
     </head>
     <body>
         <h2>Compare Selected Cars</h2>

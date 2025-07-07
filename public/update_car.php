@@ -84,7 +84,7 @@
                     <div class="form-input-title">Model <small>(Required)</small></div>
                     <input
                         type="text"
-                        name="carName"
+                        name="model"
                         maxlength="100"
                         value="<?php echo htmlspecialchars($car['model']); ?>"
                         class="input-general"
