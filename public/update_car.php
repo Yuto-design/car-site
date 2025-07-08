@@ -11,7 +11,8 @@
         $sizeHeight = $_POST['sizeHeight'] ?? 0;
         $engineType = $_POST['engineType'] ?? '';
         $displacement = $_POST['displacement'] ?? 0;
-        $fuelEconomy = $_POST['fuelEconomy'] ?? 0;
+        $fuelEconomy = isset($_POST['fuelEconomy']) && $_POST['fuelEconomy'] !== '' ? (float)$_POST['fuelEconomy'] : 0;
+        $electrisityCost = isset($_POST['electrisityCost']) && $_POST['electrisityCost'] !== '' ? (float)$_POST['electrisityCost'] : 0;
         $description = $_POST['description'] ?? '';
         $hp = $_POST['hp'] ?? '';
         $carImagePath = null;
@@ -29,16 +30,16 @@
         }
 
         if ($carImagePath) {
-            $stmt = $dbh->prepare("UPDATE cars SET manufactureName = ?, model = ?, price = ?, sizeLength = ?, sizeWidth = ?, sizeHeight = ?, engineType = ?, displacement = ?, fuelEconomy = ?, description = ?, hp = ?, carImage = ? WHERE id = ?");
+            $stmt = $dbh->prepare("UPDATE cars SET manufactureName = ?, model = ?, price = ?, sizeLength = ?, sizeWidth = ?, sizeHeight = ?, engineType = ?, displacement = ?, fuelEconomy = ?, electrisityCost = ?, description = ?, hp = ?, carImage = ? WHERE id = ?");
             $stmt->execute([
                 $manufactureName, $model, $price, $sizeLength, $sizeWidth, $sizeHeight,
-                $engineType, $displacement, $fuelEconomy, $description, $hp, $carImagePath, $id
+                $engineType, $displacement, $fuelEconomy, $electrisityCost, $description, $hp, $carImagePath, $id
             ]);
         } else {
-            $stmt = $dbh->prepare("UPDATE cars SET manufactureName = ?, model = ?, price = ?, sizeLength = ?, sizeWidth = ?, sizeHeight = ?, engineType = ?, displacement = ?, fuelEconomy = ?, description = ?, hp = ? WHERE id = ?");
+            $stmt = $dbh->prepare("UPDATE cars SET manufactureName = ?, model = ?, price = ?, sizeLength = ?, sizeWidth = ?, sizeHeight = ?, engineType = ?, displacement = ?, fuelEconomy = ?, electrisityCost = ?, description = ?, hp = ? WHERE id = ?");
             $stmt->execute([
                 $manufactureName, $model, $price, $sizeLength, $sizeWidth, $sizeHeight,
-                $engineType, $displacement, $fuelEconomy, $description, $hp, $id
+                $engineType, $displacement, $fuelEconomy, $electrisityCost, $description, $hp, $id
             ]);
         }
 

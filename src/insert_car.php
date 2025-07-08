@@ -219,7 +219,7 @@
             $stmt->bindValue(':engineType', $input_engineType, PDO::PARAM_STR);
             $stmt->bindValue(':displacement', $input_displacement === '' ? null : (int)$input_displacement, PDO::PARAM_INT);
             $stmt->bindValue(':fuelEconomy', $input_fuelEconomy === '' ? null : (int)$input_fuelEconomy, PDO::PARAM_INT);
-            $stmt->bindValue(':electrisityCost', $input_fuelEconomy === '' ? null : (int)$input_fuelEconomy, PDO::PARAM_INT);
+            $stmt->bindValue(':electrisityCost', $input_electrisityCost === '' ? null : (int)$input_electrisityCost, PDO::PARAM_INT);
             $stmt->bindValue(':description', $input_description, PDO::PARAM_STR);
             $stmt->bindValue(':hp', $input_hp, PDO::PARAM_STR);
             $stmt->bindValue(':carImage', $carImage, PDO::PARAM_STR);
