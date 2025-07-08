@@ -8,6 +8,7 @@
     $messages['input_error_engineType'] = '';
     $messages['input_error_displacement'] = '';
     $messages['input_error_fuelEconomy'] = '';
+    $_SESSION['input_error_electrisityCost'] = '';
     $messages['input_error_description'] = '';
     $messages['input_error_hp'] = '';
     $messages['input_pre_manufactureName'] = '';
@@ -19,6 +20,7 @@
     $messages['input_pre_engineType'] = '';
     $messages['input_pre_displacement'] = '';
     $messages['input_pre_fuelEconomy'] = '';
+    $_SESSION['input_pre_electrisityCost'] = '';
     $messages['input_pre_description'] = '';
     $messages['input_pre_hp'] = '';
 
@@ -65,6 +67,11 @@
     if (isset($_SESSION['input_error_fuelEconomy'])) {
         $messages['input_error_fuelEconomy'] = $_SESSION['input_error_fuelEconomy'];
         unset($_SESSION['input_error_fuelEconomy']);
+    }
+
+    if (isset($_SESSION['input_error_electrisityCost'])) {
+        $messages['input_error_electrisityCost'] = $_SESSION['input_error_electrisityCost'];
+        unset($_SESSION['input_error_electrisityCost']);
     }
 
     if (isset($_SESSION['input_error_description'])) {
@@ -120,6 +127,11 @@
     if (isset($_SESSION['input_pre_fuelEconomy'])) {
         $messages['input_pre_fuelEconomy'] = $_SESSION['input_pre_fuelEconomy'];
         unset($_SESSION['input_pre_fuelEconomy']);
+    }
+
+    if (isset($_SESSION['input_pre_electrisityCost'])) {
+        $messages['input_pre_electrisityCost'] = $_SESSION['input_pre_electrisityCost'];
+        unset($_SESSION['input_pre_electrisityCost']);
     }
 
     if (isset($_SESSION['input_pre_description'])) {

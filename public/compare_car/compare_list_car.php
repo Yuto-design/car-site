@@ -64,6 +64,12 @@
                     <?php endforeach; ?>
                 </tr>
                 <tr>
+                    <td>電費</td>
+                    <?php foreach ($compareCars as $car): ?>
+                        <td><?php echo htmlspecialchars($car['electrisityCost']); ?> km/L</td>
+                    <?php endforeach; ?>
+                </tr>
+                <tr>
                     <td>詳細</td>
                     <?php foreach ($compareCars as $car): ?>
                         <td><?php echo nl2br(htmlspecialchars($car['description'])); ?></td>
@@ -74,7 +80,7 @@
                     <?php foreach ($compareCars as $car): ?>
                         <td>
                             <?php if (!empty($car['carImage'])): ?>
-                                <img src="/uploads/<?php echo htmlspecialchars(basename($car['carImage'])); ?>" alt="Car Image">
+                                <img src="/uploads/<?php echo htmlspecialchars(basename($car['carImage'])); ?>" alt="Car Image" style="max-width: 300px;">
                             <?php else: ?>
                                 なし
                             <?php endif; ?>

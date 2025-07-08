@@ -164,6 +164,16 @@
                         class="input-general"
                     />
 
+                    <div class="form-input-title">Electricity Cost（電費） 【km/kWh】</div>
+                    <input
+                        type="number"
+                        name="electrisityCost"
+                        step="0.01"
+                        min="0"
+                        value="<?php echo htmlspecialchars($messages['input_pre_electrisityCost'], ENT_QUOTES); ?>"
+                        class="input-general"
+                    />
+
                     <div class="form-input-title">Description（詳細）</div>
                     <textarea
                         name="description"

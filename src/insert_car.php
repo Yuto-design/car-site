@@ -140,6 +140,21 @@
         $_SESSION['input_error_fuelEconomy'] = '燃費は10桁以内で入力してください。';
     }
 
+     // Electrisity Cost
+    $is_valid_electrisityCost = true;
+    $input_electrisityCost = '';
+    if (isset($_POST['electrisityCost'])) {
+        $input_electrisityCost = mbTrim(str_replace("\r\n", "\n", $_POST['electrisityCost']));
+        $_SESSION['input_pre_electrisityCost'] = $_POST['electrisityCost'];
+    } else {
+        $is_valid_electrisityCost = false;
+    }
+
+    if ($is_valid_electrisityCost && mb_strlen($input_electrisityCost) > 10) {
+        $is_valid_electrisityCost = false;
+        $_SESSION['input_error_electrisityCost'] = '燃費は10桁以内で入力してください。';
+    }
+
     // Description
     $is_valid_description = true;
     $input_description = '';
@@ -190,8 +205,8 @@
     if ($is_valid_manufactureName && $is_valid_model && $is_valid_price &&
         $is_valid_sizeLength && $is_valid_sizeWidth && $is_valid_sizeHeight) {
             $query = 'INSERT INTO cars
-                        (manufactureName, model, price, sizeLength, sizeWidth, sizeHeight, engineType, displacement, fuelEconomy, hp, description, carImage)
-                        VALUES (:manufactureName, :model, :price, :sizeLength, :sizeWidth, :sizeHeight, :engineType, :displacement, :fuelEconomy, :hp, :description, :carImage)';
+                        (manufactureName, model, price, sizeLength, sizeWidth, sizeHeight, engineType, displacement, fuelEconomy, electrisityCost, hp, description, carImage)
+                        VALUES (:manufactureName, :model, :price, :sizeLength, :sizeWidth, :sizeHeight, :engineType, :displacement, :fuelEconomy, :electrisityCost, :hp, :description, :carImage)';
 
             $stmt = $dbh->prepare($query);
 
@@ -204,6 +219,7 @@
             $stmt->bindValue(':engineType', $input_engineType, PDO::PARAM_STR);
             $stmt->bindValue(':displacement', $input_displacement === '' ? null : (int)$input_displacement, PDO::PARAM_INT);
             $stmt->bindValue(':fuelEconomy', $input_fuelEconomy === '' ? null : (int)$input_fuelEconomy, PDO::PARAM_INT);
+            $stmt->bindValue(':electrisityCost', $input_fuelEconomy === '' ? null : (int)$input_fuelEconomy, PDO::PARAM_INT);
             $stmt->bindValue(':description', $input_description, PDO::PARAM_STR);
             $stmt->bindValue(':hp', $input_hp, PDO::PARAM_STR);
             $stmt->bindValue(':carImage', $carImage, PDO::PARAM_STR);
@@ -220,6 +236,7 @@
             $_SESSION['input_error_engineType'] = '';
             $_SESSION['input_error_displacement'] = '';
             $_SESSION['input_error_fuelEconomy'] = '';
+            $_SESSION['input_error_electrisityCost'] = '';
             $_SESSION['input_error_description'] = '';
             $_SESSION['input_error_hp'] = '';
             $_SESSION['input_pre_manufactureName'] = '';
@@ -231,6 +248,7 @@
             $_SESSION['input_pre_engineType'] = '';
             $_SESSION['input_pre_displacement'] = '';
             $_SESSION['input_pre_fuelEconomy'] = '';
+            $_SESSION['input_pre_electrisityCost'] = '';
             $_SESSION['input_pre_description'] = '';
             $_SESSION['input_pre_hp'] = '';
     }

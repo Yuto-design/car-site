@@ -249,6 +249,21 @@
                         </div>
                     <?php } ?>
 
+                    <div class="form-input-title">Electricity Cost（電費）※Only EV 【km/kWh】</div>
+                    <input
+                        type="number"
+                        name="electrisityCost"
+                        step="0.01"
+                        min="0"
+                        value="<?php echo htmlspecialchars($messages['input_pre_electrisityCost'], ENT_QUOTES); ?>"
+                        class="input-general"
+                    />
+                    <?php if ($messages['input_error_electrisityCost'] !== '') { ?>
+                        <div class="form-input-error">
+                            <?php echo $messages['input_error_electrisityCost']; ?>
+                        </div>
+                    <?php } ?>
+
                     <div class="form-input-title">Description（詳細）</div>
                     <textarea name="description" class="input-message"><?php echo htmlspecialchars($messages['input_pre_description'], ENT_QUOTES); ?></textarea>
                     <?php if ($messages['input_error_description'] !== '') { ?>
@@ -366,6 +381,7 @@
                                     <p><strong>Engine Type：</strong> <?php echo htmlspecialchars($car['engineType'] ?? 'Not Clear'); ?></p>
                                     <p><strong>Displacement：</strong> <?php echo htmlspecialchars($car['displacement'] ?? 'Not Clear'); ?> cc</p>
                                     <p><strong>Fuel Economy：</strong> <?php echo htmlspecialchars($car['fuelEconomy'] ?? 'Not Clear'); ?> km/L</p>
+                                    <p><strong>Electrisity Cost：</strong> <?php echo htmlspecialchars($car['electrisityCost'] ?? 'Not Clear'); ?> km/kWh</p>
                                     <p><strong>Description：</strong><br> <?php echo nl2br(htmlspecialchars($car['description'] ?? 'None')); ?></p>
                                     <p><strong>Official HP：</strong>
                                         <?php if (!empty($car['hp'])): ?>
@@ -427,15 +443,24 @@
                                 <h3 class="card-maintitle"><?php echo htmlspecialchars($car['manufactureName'] . ' ' . $car['model']); ?></h3>
                                 <div class="car-details">
                                     <p><strong>Price：</strong> <?php echo number_format($car['price']); ?> YEN</p>
-                                    <p><strong>Engine：</strong> <?php echo htmlspecialchars($car['engineType']); ?></p>
-                                    <p><strong>Description：</strong><br> <?php echo nl2br(htmlspecialchars($car['description'])); ?></p>
+                                    <p><strong>Size (L×W×H) 【mm】 ：</strong>
+                                        <?php
+                                            echo number_format($car['sizeLength']) . '×' .
+                                            number_format($car['sizeWidth']) . '×' .
+                                            number_format($car['sizeHeight']);
+                                        ?>
+                                    </p>
+                                    <p><strong>Engine Type：</strong> <?php echo htmlspecialchars($car['engineType'] ?? 'Not Clear'); ?></p>
+                                    <p><strong>Displacement：</strong> <?php echo htmlspecialchars($car['displacement'] ?? 'Not Clear'); ?> cc</p>
+                                    <p><strong>Fuel Economy：</strong> <?php echo htmlspecialchars($car['fuelEconomy'] ?? 'Not Clear'); ?> km/L</p>
+                                    <p><strong>Electrisity Cost：</strong> <?php echo htmlspecialchars($car['electrisityCost'] ?? 'Not Clear'); ?> km/kWh</p>
+                                    <p><strong>Description：</strong><br> <?php echo nl2br(htmlspecialchars($car['description'] ?? 'None')); ?></p>
                                     <p><strong>Official HP：</strong>
                                         <?php if (!empty($car['hp'])): ?>
                                             <a href="<?php echo htmlspecialchars($car['hp']); ?>" target="_blank" rel="noopener noreferrer">HP Link</a>
                                         <?php else: ?>
                                             なし
                                         <?php endif; ?>
-                                    </p>
                                 </div>
 
                                 <div class="card-buttons">
