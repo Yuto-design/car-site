@@ -51,7 +51,8 @@ header {
     top: 0;
     z-index: 999;
 }
-header a {
+header a:hover {
+    color: #f1c40f;
 }
 header ul {
     display: flex;
@@ -82,7 +83,7 @@ header li {
 }
 #about h2 {
     font-size: 2.5rem;
-    color: white;
+    color: #ffff00;
     margin-bottom: 30px;
     position: relative;
     display: inline-block;
@@ -164,7 +165,7 @@ header li {
 }
 #brands h2 {
     font-size: 2.5rem;
-    color: white;
+    color: #ffff00;
     margin-bottom: 30px;
     position: relative;
     display: inline-block;
@@ -173,7 +174,7 @@ header li {
     display: block;
     width: 60%;
     height: 3px;
-    background-color: white;
+    background-color: #fff;
     margin: 10px auto 0;
     border-radius: 2px;
 }
@@ -349,6 +350,12 @@ header li {
     padding: 5px 10px;
     cursor: pointer;
 }
+.filter-form-price-check {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 10px;
+}
 .car-info-grid {
     display: flex;
     flex-wrap: wrap;
@@ -494,7 +501,7 @@ header li {
 }
 #contact h2 {
     font-size: 2.5rem;
-    color: white;
+    color: #ffff00;
     margin-bottom: 30px;
     position: relative;
     display: inline-block;

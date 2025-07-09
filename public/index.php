@@ -328,11 +328,12 @@
                         ?>
                     </div>
                     <p><strong>価格帯を選択：</strong></p>
-                    <div class="filter-form-check">
+                    <div class="filter-form-price-check">
                         <label><input type="checkbox" name="price_range[]" value="0-400" <?php if (isset($_GET['price_range']) && in_array('0-400', $_GET['price_range'])) echo 'checked'; ?>> ～400万円</label>
                         <label><input type="checkbox" name="price_range[]" value="400-700" <?php if (isset($_GET['price_range']) && in_array('400-700', $_GET['price_range'])) echo 'checked'; ?>> 400万円～700万円</label>
-                        <label><input type="checkbox" name="price_range[]" value="700-10000000" <?php if (isset($_GET['price_range']) && in_array('700-10000000', $_GET['price_range'])) echo 'checked'; ?>> 700万円～1000万円</label>
-                        <label><input type="checkbox" name="price_range[]" value="10000000-15000000" <?php if (isset($_GET['price_range']) && in_array('10000000-15000000', $_GET['price_range'])) echo 'checked'; ?>> 1000万円～1500万円</label>
+                        <label><input type="checkbox" name="price_range[]" value="700-1000" <?php if (isset($_GET['price_range']) && in_array('700-1000', $_GET['price_range'])) echo 'checked'; ?>> 700万円～1000万円</label>
+                        <label><input type="checkbox" name="price_range[]" value="1000-1500" <?php if (isset($_GET['price_range']) && in_array('1000-1500', $_GET['price_range'])) echo 'checked'; ?>> 1000万円～1500万円</label>
+                        <label><input type="checkbox" name="price_range[]" value="1500-3000" <?php if (isset($_GET['price_range']) && in_array('1500-3000', $_GET['price_range'])) echo 'checked'; ?>> 1500万円～</label>
                     </div>
                     <hr class="page-divider" />
                     <button type="submit">検索</button>
