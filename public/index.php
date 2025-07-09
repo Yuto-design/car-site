@@ -51,7 +51,7 @@
         </div>
 
         <?php
-            $stmtCounts = $dbh->query("SELECT manufactureName, COUNT(*) AS count FROM cars GROUP BY manufactureName");
+            $stmtCounts = $dbh->query("SELECT manufactureName, COUNT(*) AS count FROM cars GROUP BY manufactureName ORDER BY manufactureName ASC");
             $manufacturerCounts = $stmtCounts->fetchAll(PDO::FETCH_ASSOC);
 
             $stmtTotal = $dbh->query("SELECT COUNT(*) AS total FROM cars");
@@ -327,27 +327,58 @@
                             }
                         ?>
                     </div>
+                    <p><strong>価格帯を選択：</strong></p>
+                    <div class="filter-form-check">
+                        <label><input type="checkbox" name="price_range[]" value="0-400" <?php if (isset($_GET['price_range']) && in_array('0-400', $_GET['price_range'])) echo 'checked'; ?>> ～400万円</label>
+                        <label><input type="checkbox" name="price_range[]" value="400-700" <?php if (isset($_GET['price_range']) && in_array('400-700', $_GET['price_range'])) echo 'checked'; ?>> 400万円～700万円</label>
+                        <label><input type="checkbox" name="price_range[]" value="700-10000000" <?php if (isset($_GET['price_range']) && in_array('700-10000000', $_GET['price_range'])) echo 'checked'; ?>> 700万円～1000万円</label>
+                        <label><input type="checkbox" name="price_range[]" value="10000000-15000000" <?php if (isset($_GET['price_range']) && in_array('10000000-15000000', $_GET['price_range'])) echo 'checked'; ?>> 1000万円～1500万円</label>
+                    </div>
                     <hr class="page-divider" />
                     <button type="submit">検索</button>
                 </form>
 
                 <?php
                     $selectedManufacturers = $_GET['manufacturer'] ?? [];
-
                     if (!is_array($selectedManufacturers)) {
                         $selectedManufacturers = [$selectedManufacturers];
                     }
 
+                    $selectedPriceRanges = $_GET['price_range'] ?? [];
+                    if (!is_array($selectedPriceRanges)) {
+                        $selectedPriceRanges = [$selectedPriceRanges];
+                    }
+
+                    $whereClauses = [];
+                    $params = [];
+
                     if (!empty($selectedManufacturers)) {
                         $placeholders = implode(',', array_fill(0, count($selectedManufacturers), '?'));
-                        $sql = "SELECT * FROM cars WHERE manufactureName IN ($placeholders) ORDER BY manufactureName ASC";
-                        $stmt = $dbh->prepare($sql);
-                        $stmt->execute($selectedManufacturers);
-                    } else {
-                        $sql = "SELECT * FROM cars ORDER BY manufactureName ASC";
-                        $stmt = $dbh->prepare($sql);
-                        $stmt->execute();
+                        $whereClauses[] = "manufactureName IN ($placeholders)";
+                        $params = array_merge($params, $selectedManufacturers);
                     }
+                    if (!empty($selectedPriceRanges)) {
+                        $priceConditions = [];
+                        foreach ($selectedPriceRanges as $range) {
+                            list($min, $max) = explode('-', $range);
+                            $minPrice = $min * 10000;
+                            $maxPrice = $max * 10000;
+
+                            $priceConditions[] = "(price >= ? AND price <= ?)";
+                            $params[] = $minPrice;
+                            $params[] = $maxPrice;
+                        }
+                        $whereClauses[] = '(' . implode(' OR ', $priceConditions) . ')';
+                    }
+
+                    $sql = "SELECT * FROM cars";
+                    if (!empty($whereClauses)) {
+                        $sql .= ' WHERE ' . implode(' AND ', $whereClauses);
+                    }
+                    $sql .= " ORDER BY manufactureName ASC";
+
+                    $stmt = $dbh->prepare($sql);
+                    $stmt->execute($params);
 
                     $cars = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 ?>
