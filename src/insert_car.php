@@ -95,7 +95,7 @@
     }
 
 
-    // Engine_type
+    // Engine Type
     $is_valid_engineType = true;
     $input_engineType = '';
     if (isset($_POST['engineType'])) {
@@ -107,7 +107,7 @@
 
     if ($is_valid_engineType && mb_strlen($input_engineType) > 30) {
         $is_valid_engineType = false;
-        $_SESSION['input_error_engineType'] = 'エンジンは30文字以内で入力してください。（現在 ' . mb_strlen($input_carName) . ' 文字）';
+        $_SESSION['input_error_engineType'] = 'エンジンは30文字以内で入力してください。（現在 ' . mb_strlen($input_engineType) . ' 文字）';
     }
 
     // Displacement
@@ -135,7 +135,7 @@
         $is_valid_fuelEconomy = false;
     }
 
-    if ($is_valid_fuelEconomy && mb_strlen($input_fuelEconomy) > 10) {
+    if ($is_valid_fuelEconomy && $input_fuelEconomy === '') {
         $is_valid_fuelEconomy = false;
         $_SESSION['input_error_fuelEconomy'] = '燃費は10桁以内で入力してください。';
     }
@@ -150,7 +150,7 @@
         $is_valid_electrisityCost = false;
     }
 
-    if ($is_valid_electrisityCost && mb_strlen($input_electrisityCost) > 10) {
+    if ($is_valid_electrisityCost && $input_electrisityCost === '') {
         $is_valid_electrisityCost = false;
         $_SESSION['input_error_electrisityCost'] = '燃費は10桁以内で入力してください。';
     }
@@ -218,8 +218,8 @@
             $stmt->bindValue(':sizeHeight', $input_sizeHeight === '' ? null : (int)$input_sizeHeight, PDO::PARAM_INT);
             $stmt->bindValue(':engineType', $input_engineType, PDO::PARAM_STR);
             $stmt->bindValue(':displacement', $input_displacement === '' ? null : (int)$input_displacement, PDO::PARAM_INT);
-            $stmt->bindValue(':fuelEconomy', $input_fuelEconomy === '' ? null : (int)$input_fuelEconomy, PDO::PARAM_INT);
-            $stmt->bindValue(':electrisityCost', $input_electrisityCost === '' ? null : (int)$input_electrisityCost, PDO::PARAM_INT);
+            $stmt->bindValue(':fuelEconomy', $input_fuelEconomy === '' ? 0 : (int)$input_fuelEconomy, PDO::PARAM_INT);
+            $stmt->bindValue(':electrisityCost', $input_electrisityCost === '' ? 0 : (int)$input_electrisityCost, PDO::PARAM_INT);
             $stmt->bindValue(':description', $input_description, PDO::PARAM_STR);
             $stmt->bindValue(':hp', $input_hp, PDO::PARAM_STR);
             $stmt->bindValue(':carImage', $carImage, PDO::PARAM_STR);
