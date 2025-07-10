@@ -1,3 +1,55 @@
-# car-site
+# 自動車紹介サイト
 
 制作中
+
+このプロジェクトは、中古車や新車の情報をユーザーに提供するための**自動車紹介サイト**です。車の詳細情報を表示・登録・編集・削除できるほか、お気に入り登録や車の比較機能も提供予定です。
+
+---
+
+## 主な機能
+
+- 車の登録（管理者用）
+- 車一覧の表示（画像・メーカー・価格など）
+- 車の詳細ページ
+- お問い合わせフォーム
+- 車の削除機能
+- 編集機能（実装済みまたは予定）
+- ⭐ お気に入り登録（実装予定）
+- 🔍 車の比較機能（実装予定）
+
+---
+
+## 使用技術
+
+- フロントエンド: **HTML / CSS / JavaScript**
+- バックエンド: **PHP**
+- データベース: **phpMyAdmin**
+- フレームワーク: 未使用
+
+---
+
+## ディレクトリ構成
+car-site/
+├── public/                     # 公開用ディレクトリ（Webサーバーのルート）
+│   ├── index.php               # トップページ
+│   ├── update_car.php          # 車情報更新のページ
+│   ├── favorite_car.php
+│   ├── unfavorite_car.php
+│   ├── compare_car/
+│   ├── compare_car.php
+│   └── compare_list_car.php    # 車比較ページ
+│   └── remove_compare_car.php
+│   ├── assets/                 # CSS
+│   │     └── main.css
+│   │     └── compare_car.css
+│   ├── img/
+│   │     └── car.jpg
+│   │     └── car-speed.jpg
+│   ├── uploads/                # 車の画像保存ディレクトリ
+├── src/                        # PHPビジネスロジック・操作処理
+│   ├── insert_car.php          # 車の登録処理
+│   ├── delete_car.php          # 車の削除処理
+│   ├── session_values.php
+│   └── db_connect.php          # DB接続関数など
+├── docker-compose.yml
+└── README.md                   # プロジェクト説明ファイル
