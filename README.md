@@ -32,29 +32,31 @@
 
 <pre><code>
 car-site/
-├── public/                     # 公開用ディレクトリ（Webサーバーのルート）
-│   ├── index.php               # トップページ
-│   ├── update_car.php          # 車情報更新のページ
-│   ├── favorite_car.php
-│   ├── unfavorite_car.php
-│   ├── compare_car/
-│   ├── compare_car.php
-│   └── compare_list_car.php    # 車比較ページ
-│   └── remove_compare_car.php
-│   ├── assets/                 # CSS
-│   │     └── main.css
-│   │     └── compare_car.css
-│   ├── img/
-│   │     └── car.jpg
-│   │     └── car-speed.jpg
-│   ├── uploads/                # 車の画像保存ディレクトリ
-├── src/                        # PHPビジネスロジック・操作処理
-│   ├── insert_car.php          # 車の登録処理
-│   ├── delete_car.php          # 車の削除処理
-│   ├── session_values.php
-│   └── db_connect.php          # DB接続関数など
+├── php/
+│     └── Dockerfile
+├── public/                               # 公開用ディレクトリ
+│     ├── index.php                       # トップページ
+│     ├── update_car.php                  # 車情報更新のページ
+│     ├── favorite_car.php
+│     ├── unfavorite_car.php
+│     ├── compare_car/
+│     │     ├── compare_car.php
+│     │     ├── compare_list_car.php      # 車比較ページ
+│     │     └── remove_compare_car.php
+│     ├── assets/                         # CSS
+│     │     ├── main.css
+│     │     └── compare_car.css
+│     ├── img/
+│     │     ├── car.jpg
+│     │     └── car-speed.jpg
+│     └── uploads/                        # 車の画像保存ディレクトリ
+├── src/                                  # PHPビジネスロジック・操作処理
+│     ├── insert_car.php                  # 車の登録処理
+│     ├── delete_car.php                  # 車の削除処理
+│     ├── session_values.php
+│     └── db_connect.php                  # DB接続関数など
 ├── docker-compose.yml
-└── README.md                   # プロジェクト説明ファイル
+└── README.md                             # プロジェクト説明ファイル
 </code></pre>
 
 ---
@@ -67,7 +69,7 @@ git clone https://github.com/your-username/car-site.git
 cd car-site
 </code></pre>
 
-**２．開発環境の準備**
+**２．開発環境の準備**  
 *Docker + docker-compose*
 - Docker Desktop をインストール
 - 以下のコマンドで環境を構築・起動
@@ -82,3 +84,29 @@ docker-compose up -d
 
 **✅ 注意事項**
 - uploads/ディレクトリには書き込み権限が必要です.
+
+---
+
+## ページ一覧
+
+|         URLパス         |          説明         |
+- `/index.php`           ：トップページ（一覧表示）
+- `/favorite_car.php`    ：お気に入り追加処理
+- `/compare_list_car.php`：比較リスト表示
+
+---
+
+## スクリーンショット
+
+トップページ  
+<p align="center">
+    <img src="README_img/top-page-main.png" width="45%" />
+    <img src="README_img/top-page-about.png" width="45%" />
+    <img src="README_img/top-page-listOfbrands1.png" width="45%" />
+    <img src="README_img/top-page-listOfbrands2.png" width="45%" />
+</p>
+
+比較ページ  
+<p align="center">
+    <img src="README_img/compare-car.png" width="45%" />
+</p>
