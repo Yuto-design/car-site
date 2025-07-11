@@ -29,27 +29,30 @@
 ---
 
 ## ディレクトリ構成
+
+<pre><code>
 car-site/
-├── public/                     # 公開用ディレクトリ（Webサーバーのルート） 
-│   ├── index.php               # トップページ 
-│   ├── update_car.php          # 車情報更新のページ 
-│   ├── favorite_car.php 
-│   ├── unfavorite_car.php 
-│   ├── compare_car/ 
-│   ├── compare_car.php 
-│   └── compare_list_car.php    # 車比較ページ 
-│   └── remove_compare_car.php 
-│   ├── assets/                 # CSS 
-│   │     └── main.css 
-│   │     └── compare_car.css 
-│   ├── img/ 
-│   │     └── car.jpg 
-│   │     └── car-speed.jpg 
-│   ├── uploads/                # 車の画像保存ディレクトリ 
-├── src/                        # PHPビジネスロジック・操作処理 
-│   ├── insert_car.php          # 車の登録処理 
-│   ├── delete_car.php          # 車の削除処理 
-│   ├── session_values.php 
-│   └── db_connect.php          # DB接続関数など 
-├── docker-compose.yml 
-└── README.md                   # プロジェクト説明ファイル 
+├── public/                     # 公開用ディレクトリ（Webサーバーのルート）
+│   ├── index.php               # トップページ
+│   ├── update_car.php          # 車情報更新のページ
+│   ├── favorite_car.php
+│   ├── unfavorite_car.php
+│   ├── compare_car/
+│   ├── compare_car.php
+│   └── compare_list_car.php    # 車比較ページ
+│   └── remove_compare_car.php
+│   ├── assets/                 # CSS
+│   │     └── main.css
+│   │     └── compare_car.css
+│   ├── img/
+│   │     └── car.jpg
+│   │     └── car-speed.jpg
+│   ├── uploads/                # 車の画像保存ディレクトリ
+├── src/                        # PHPビジネスロジック・操作処理
+│   ├── insert_car.php          # 車の登録処理
+│   ├── delete_car.php          # 車の削除処理
+│   ├── session_values.php
+│   └── db_connect.php          # DB接続関数など
+├── docker-compose.yml
+└── README.md                   # プロジェクト説明ファイル
+</code></pre>
