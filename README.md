@@ -68,14 +68,14 @@ cd car-site
 </code></pre>
 
 **２．開発環境の準備**
-- *Docker + docker-compose*  
-１．Docker Desktop をインストール  
-２．以下のコマンドで環境を構築・起動
+*Docker + docker-compose*
+- Docker Desktop をインストール
+- 以下のコマンドで環境を構築・起動
 <pre><code>
 docker-compose up -d
-</code></pre>  
-３．phpMyAdmin（DB管理画面）にアクセス：http://localhost:8083  
-　　　　ログイン情報：docker-compose.ymlに記載
+</code></pre>
+- phpMyAdmin（DB管理画面）にアクセス：http://localhost:8083  
+　ログイン情報：docker-compose.ymlに記載
 
 **３．動作確認**
 - ブラウザで次のURLにアクセスして表示確認：http://localhost:8082
