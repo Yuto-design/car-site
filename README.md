@@ -100,11 +100,8 @@ docker-compose up -d
 
 トップページ  
 ![トップメイン画面](README_img/top-page-main.png)
-
 ![トップページ - サイト概要](README_img/top-page-about.png)
-
 ![トップページ - ブランド一覧①](README_img/top-page-listOfbrands1.png)
-
 ![トップページ - ブランド一覧②](README_img/top-page-listOfbrands2.png)
 
 比較ページ  
