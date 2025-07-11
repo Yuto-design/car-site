@@ -89,7 +89,6 @@ docker-compose up -d
 
 ## ページ一覧
 
-|         URLパス         |          説明         |
 - `/index.php`           ：トップページ（一覧表示）
 - `/favorite_car.php`    ：お気に入り追加処理
 - `/compare_list_car.php`：比較リスト表示
@@ -98,7 +97,7 @@ docker-compose up -d
 
 ## スクリーンショット
 
-トップページ  
+トップページ
 ![トップメイン画面](README_img/top-page-main.png)
 ![トップページ - サイト概要](README_img/top-page-about.png)
 ![トップページ - ブランド一覧①](README_img/top-page-listOfbrands1.png)
@@ -108,5 +107,5 @@ docker-compose up -d
 ![トップページ - ブランド一覧⑤](README_img/top-page-favorite.png)
 ![トップページ - お問い合わせ](README_img/top-page-contact.png)
 
-比較ページ  
+比較ページ
 ![比較画面](README_img/compare-car.png)
