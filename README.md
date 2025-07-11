@@ -99,14 +99,13 @@ docker-compose up -d
 ## スクリーンショット
 
 トップページ  
-<p align="center">
-    <img src="README_img/top-page-main.png" width="45%" />
-    <img src="README_img/top-page-about.png" width="45%" />
-    <img src="README_img/top-page-listOfbrands1.png" width="45%" />
-    <img src="README_img/top-page-listOfbrands2.png" width="45%" />
-</p>
+![トップメイン画面](README_img/top-page-main.png)
+
+![トップページ - サイト概要](README_img/top-page-about.png)
+
+![トップページ - ブランド一覧①](README_img/top-page-listOfbrands1.png)
+
+![トップページ - ブランド一覧②](README_img/top-page-listOfbrands2.png)
 
 比較ページ  
-<p align="center">
-    <img src="README_img/compare-car.png" width="45%" />
-</p>
+![比較画面](README_img/compare-car.png)
