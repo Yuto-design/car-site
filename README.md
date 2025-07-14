@@ -72,7 +72,7 @@ cd car-site
 - Docker Desktop をインストール
 - 以下のコマンドで環境を構築・起動
 <pre><code>
-docker-compose up -d
+docker compose up -d
 </code></pre>
 - phpMyAdmin（DB管理画面）にアクセス：http://localhost:8083  
 　ログイン情報：docker-compose.ymlに記載
