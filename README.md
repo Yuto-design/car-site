@@ -85,7 +85,11 @@ docker compose up -d
 
 ---
 
+## ページ一覧
 
+- `/index.php`           ：トップページ（一覧表示）
+- `/favorite_car.php`    ：お気に入り追加処理
+- `/compare_list_car.php`：比較リスト表示
 
 ---
 
